@@ -35,7 +35,7 @@
         <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
         <!-- 罗列所有持久化类的类名 -->
         <mapping class="com.fendo.entity.Admin"/>
-        <mapping class="com.fendo.entity.DepEntryForm"/>
+        <!-- <mapping class="com.fendo.entity.DepEntryForm"/> -->
         <mapping class="com.fendo.entity.Department"/>
         <mapping class="com.fendo.entity.Itemscore"/>
         <mapping class="com.fendo.entity.Item"/>
