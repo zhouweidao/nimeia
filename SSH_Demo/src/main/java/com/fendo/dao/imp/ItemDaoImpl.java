@@ -18,6 +18,6 @@ import com.fendo.entity.Item;
 import com.fendo.util.PageBean;
 
 @Repository
-public class ItemImpl extends BaseDaoImpl<Item> implements ItemDao {
+public class ItemDaoImpl extends BaseDaoImpl<Item> implements ItemDao {
 
 	}

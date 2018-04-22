@@ -18,6 +18,6 @@ import com.fendo.entity.ItemScore;
 import com.fendo.util.PageBean;
 
 @Repository
-public class ItemScoreImpl extends BaseDaoImpl<ItemScore> implements ItemScoreDao {
+public class ItemScoreDaoImpl extends BaseDaoImpl<ItemScore> implements ItemScoreDao {
 
 	}
