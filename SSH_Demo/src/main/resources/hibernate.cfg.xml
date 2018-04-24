@@ -7,7 +7,7 @@
         <!-- 指定连接数据库所用的驱动 -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <!-- 指定连接数据库的url，其中hibernate是本应用连接的数据库名 -->
-        <property name="connection.url">jdbc:mysql://10.240.246.117:3306/sport?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/sport?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
         <!-- 指定连接数据库的用户名 -->
         <property name="connection.username">myuser</property>
         <!-- 指定连接数据库的密码 -->
