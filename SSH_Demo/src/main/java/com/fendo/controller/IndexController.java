@@ -1,32 +1,41 @@
 package com.fendo.controller;
 
-import java.io.Serializable;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 import com.fendo.entity.Admin;
-import com.fendo.entity.User;
-import com.fendo.service.UserService;
+import com.fendo.entity.Player;
+import com.fendo.service.AdminService;
+import com.fendo.service.PlayerService;
 
 @Controller
 @RequestMapping(value = "/indexAction")
 public class IndexController {
 
 	@Autowired
-	private UserService userService;
+	private AdminService adminservice;
+	@Autowired
+	private PlayerService playerservice;
 	/**
 	 * 跳转到登录页
 	 * @return
 	 */
-	@RequestMapping("/index.html")
-	@ResponseBody
+	@RequestMapping(value = "/index.json")
 	public String toHomeAction(){
+		return "main";
+	}
+	
+	@RequestMapping("/listTopPlayer.json")
+	@ResponseBody
+	public String listTopPlayerAction(){
+		
 		
 		return "";
 	}
@@ -37,10 +46,16 @@ public class IndexController {
 	 * @return 登录后跳转到的页面
 	 */
 	@RequestMapping("/login.html")
-	@ResponseBody
-	public String loginAction(@RequestBody Admin admin) {
-
-		return "";
+	public String loginAction(String username,String pasw,String type,HttpServletRequest request) {
+		String result = playerservice.login(username, pasw, type);
+		if(result.equals("playinfo")){
+			request.setAttribute("player", playerservice.get(username));
+		}else if(result.equals("")){
+			request.setAttribute("", adminservice.get(username));
+		}else if(result.equals("")){
+			request.setAttribute("admin", adminservice.get(username));
+		}
+		return result;
 	}
 
 	/**

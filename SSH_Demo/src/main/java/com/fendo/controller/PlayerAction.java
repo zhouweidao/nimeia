@@ -15,9 +15,23 @@ public class PlayerAction {
 		return "";
 	}
 	
-	@RequestMapping("showPlayerInfo.json")
+	@RequestMapping("/showPlayerInfo.json")
 	@ResponseBody
 	public String showPlayerInfoAction(String playerid){
+		
+		return "";
+	}
+	
+	@RequestMapping("/playApply.json")
+	@ResponseBody
+	public String playApplyAction(){
+		
+		return "";
+	}
+	
+	@RequestMapping("/repealApply.json")
+	@ResponseBody
+	public String reaealApplyAction(){
 		
 		return "";
 	}
