@@ -24,7 +24,7 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 		int ntype = Integer.parseInt(type);
 		Player player = null;
 		if(!"".equals(username) && !"".equals(pswd)){
-		if(ntype == 0){
+		if(ntype == 1){
 			player = playDao.get(username, Player.class);
 			if(player == null){
 				result = "当前用户不存在,请重新登陆!";

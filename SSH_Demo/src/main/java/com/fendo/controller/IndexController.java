@@ -47,6 +47,7 @@ public class IndexController {
 	 */
 	@RequestMapping("/login.html")
 	public String loginAction(String username,String pasw,String type,HttpServletRequest request) {
+		System.out.println(type);
 		String result = playerservice.login(username, pasw, type);
 		if(result.equals("playinfo")){
 			request.setAttribute("player", playerservice.get(username));

@@ -14,22 +14,23 @@ import javax.persistence.Table;
 @Table(name="PLAYER")
 public class Player implements Serializable{
 
-	    @Id 
-	    @GeneratedValue(strategy=GenerationType.IDENTITY)
-	    private Integer id;
+	   
+	    
 
 	    @Column(name="player")
 	    private String player;
+	    @Id 
 	    @Column(name="playerID")
-	    private Integer playerID;
+	    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	    private String playerID;
 	    @Column(name="password")
 	    private String password;
 	    @Column(name="playerName")
 	    private String playerName;
 	    @Column(name="sex")
 	    private String sex;
-	    @Column(name="Sclass")
-	    private String Sclass;
+	    @Column(name="Class")
+	    private String classes;
 	    @Column(name="grade")
 	    private String grade;
 	    @Column(name="major")
@@ -39,24 +40,23 @@ public class Player implements Serializable{
 	    @Column(name="depName")
 	    private String depName;
 	    @Column(name="Score")
-	    private Integer Score;
+	    private String Score;
 	    @Column(name="Tel")
-	    private Integer Tel;
+	    private String Tel;
 	    @Column(name="priority")
-	    private Integer priority;
+	    private String priority;
 	    @Column(name="playerEntryNum")
 	    private Integer playerEntryNum;
 	    
 	    
-		public Integer getId() {
-			return id;
+	
+	    public String getClasses() {
+			return classes;
 		}
-
-
-		public void setId(Integer id) {
-			this.id = id;
+	    
+	    public void setClasses(String classes) {
+			this.classes = classes;
 		}
-
 
 		public String getPlayer() {
 			return player;
@@ -68,12 +68,12 @@ public class Player implements Serializable{
 		}
 
 
-		public Integer getPlayerID() {
+		public String getPlayerID() {
 			return playerID;
 		}
 
 
-		public void setPlayerID(Integer playerID) {
+		public void setPlayerID(String playerID) {
 			this.playerID = playerID;
 		}
 
@@ -106,18 +106,6 @@ public class Player implements Serializable{
 		public void setSex(String sex) {
 			this.sex = sex;
 		}
-
-
-		
-		public String getSclass() {
-			return Sclass;
-		}
-
-
-		public void setSclass(String sclass) {
-			Sclass = sclass;
-		}
-
 
 		public String getGrade() {
 			return grade;
@@ -159,32 +147,32 @@ public class Player implements Serializable{
 		}
 
 
-		public Integer getScore() {
+		public String getScore() {
 			return Score;
 		}
 
 
-		public void setScore(Integer score) {
+		public void setScore(String score) {
 			Score = score;
 		}
 
 
-		public Integer getTel() {
+		public String getTel() {
 			return Tel;
 		}
 
 
-		public void setTel(Integer tel) {
+		public void setTel(String tel) {
 			Tel = tel;
 		}
 
 
-		public Integer getPriority() {
+		public String getPriority() {
 			return priority;
 		}
 
 
-		public void setPriority(Integer priority) {
+		public void setPriority(String priority) {
 			this.priority = priority;
 		}
 

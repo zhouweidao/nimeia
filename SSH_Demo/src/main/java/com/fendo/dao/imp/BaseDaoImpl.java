@@ -71,7 +71,8 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
      * 
      * @return T 返回类型
      */
-    @SuppressWarnings("unchecked")
+  //  @SuppressWarnings("unchecked")
+    @Transactional
     public T get(Serializable id, Class<T> clazz) {
         return (T) sessionFactory.getCurrentSession().get(clazz, id);
     }
