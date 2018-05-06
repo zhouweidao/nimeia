@@ -158,7 +158,7 @@
 		<!--左侧导航结束-->
 		<!--右侧部分开始-->
 		<div class="" id="" style="height: 80%;">
-			<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="bishe/base/jsp/docs/index.jsp" frameborder="0" data-id="index_v1.html" seamless></iframe>
+			<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="bishe/jsp/docs/index.jsp" frameborder="0" data-id="index_v1.html" seamless></iframe>
 		</div>
 
 	</body>
