@@ -20,103 +20,269 @@
 <script src="../../base/js/bootstrap.min.js" type="text/javascript"
 	charset="utf-8"></script>
 
-<style type="text/css">
-h1 {
-	margin-left: 500px;
-}
-</style>
+	<style type="text/css">
+			h1 {
+				margin-left: 322px;
+			}
+			.row-fluid .span8{
+				width: 100%;
+			}
+			.btn-group {
+			    margin: -12px -15px 5px -5px;
+			}
+			.btn-group > .btn + .dropdown-toggle .caret {
+			    margin-top: 8px;
+			}
+			.row-fluid [class*="span"]{
+				margin-left: 0px;
+			}
+			[class*="span"]{
+				margin-left: 0px;
+			}
+		</style>
 
-<script>
-	
-</script>
-</head>
-	<body>
-		<div class="container-fluid">
+		<script>
+		
+		</script>
+	</head>
+
+	<body style="padding: 0;margin-left: 0;background-color: #FFF;">
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="row-fluid">
-						<div class="span12">
-							<h1>西南科技大学赛事系统</h1>
-							<div style="width: 100%; height: 30px;">
-								<!--<a id="Login_start_" class="btn btn-danger" style="width:100px;height:40px;border-radius: 0;">登录</a>
-<a id="Regist_start_" class="btn btn-success" style="width:100px;height:40px;border-radius: 0;">注册</a>-->
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="row-fluid">
-						<div class="span2 rightbow"></div>
 						<div class="span8">
 							<div class="row-fluid">
-								<div class="span12">
+								<div class="span12" style="margin-top: 13px;">
 									<div class="row-fluid">
 										<div class="span12">
-											<h3 class="text-left" style="float: left;">排行榜</h3>
-											<form class="form-search">
-												<select class="playertype" style="float: left; margin-top: 15px; margin-left: 30px;">
+											<h3 class="text-left" style="float: left;margin-left: 100px;">排行榜</h3>
+											<form class="form-search" style="margin: 0;">
+												<div class="btn-group">
+													<select class="playertype" style="float: left; margin-top: 15px; margin-left: 30px;">
 													<option>-----请选择------</option>
 													<option class="student" value="1" id="student">学生</option>
 													<option class="teacher" value="2" id="teacher">教师</option>
 												</select>
-												<select class="playercontext" style="float: left; margin-top: 15px; margin-left: 20px;">
+												
+												</div>
+												<div class="btn-group" style="margin-left: 40px;">
+													<select class="playercontext" style="float: left; margin-top: 15px; margin-left: 20px;">
 													<option>-----请选择------</option>
 												</select>
-												<div style="float: left; margin-top: 15px; margin-left: 20px;">
-													<input class="input-medium search-query" type="text" value="" />
-													<button type="submit" class="btn-warning submitbtn">查找</button>
+												</div>
+												<!--<select style="float: left;margin-top: 15px; margin-left: 30px;">
+													<option>运动员类型</option>
+													<option>长跑</option>
+													<option>短跑</option>
+												</select>
+												<select style="float: left;margin-top: 15px; margin-left: 20px;">
+													<option>运动员类型</option>
+												</select>-->
+												<div style="position: absolute;right: 100px;top: 16px;">
+													<input placeholder="对应的具体检索内容" class="input-medium search-query" type="text" /> <button type="submit" class="btn-warning">查找</button>
 												</div>
 											</form>
 										</div>
 
 									</div>
 								</div>
-								<table class="table playertable">
+								<table class="table" style="margin-bottom: 0px;">
 									<thead>
-										<tr>
-											<th>编号</th>
-											<th>产品</th>
-											<th>交付时间</th>
-											<th>状态</th>
+										<tr style="background-color: #f0ad4e;">
+											<th>
+												排名
+											</th>
+											<th>
+												学院名
+											</th>
+											<th>
+												学院积分
+											</th>
+											<!--<th>
+												状态
+											</th>-->
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>TB - Monthly</td>
-											<td>01/04/2012</td>
-											<td>Default</td>
-										</tr>
 										<tr class="success">
-											<td>1</td>
-											<td>TB - Monthly</td>
-											<td>01/04/2012</td>
-											<td>Approved</td>
+											<td>
+												1
+											</td>
+											<td>
+												计算机科学与技术学院
+											</td>
+											<td>
+												160
+											</td>
 										</tr>
 										<tr class="error">
-											<td>2</td>
-											<td>TB - Monthly</td>
-											<td>02/04/2012</td>
-											<td>Declined</td>
+											<td>
+												2
+											</td>
+											<td>
+												制造科学与工程学院
+											</td>
+											<td>
+												143
+											</td>
 										</tr>
 										<tr class="warning">
-											<td>3</td>
-											<td>TB - Monthly</td>
-											<td>03/04/2012</td>
-											<td>Pending</td>
+											<td>
+												3
+											</td>
+											<td>
+												材料科学与工程学院
+
+											</td>
+											<td>
+												132
+											</td>
 										</tr>
 										<tr class="info">
-											<td>4</td>
-											<td>TB - Monthly</td>
-											<td>04/04/2012</td>
-											<td>Call in to confirm</td>
+											<td>
+												4
+											</td>
+											<td>
+												生命科学于工程学院
+
+											</td>
+											<td>
+												120
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												5
+											</td>
+											<td>
+												土木工程与建筑学院
+
+											</td>
+											<td>
+												112
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												6
+											</td>
+											<td>
+												文学与艺术学院
+
+											</td>
+											<td>
+												108
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												7
+											</td>
+											<td>
+												环境与资源学院
+
+											</td>
+											<td>
+												102
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												8
+											</td>
+											<td>
+												国防科技学院
+
+											</td>
+											<td>
+												94
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												9
+											</td>
+											<td>
+												经济管理学院
+
+											</td>
+											<td>
+												90
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												10
+											</td>
+											<td>
+												信息工程学院
+											</td>
+											<td>
+												88
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												11
+											</td>
+											<td>
+												外国语学院
+
+											</td>
+											<td>
+												86
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												12
+											</td>
+											<td>
+												政治学院
+
+											</td>
+											<td>
+												78
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												13
+											</td>
+											<td>
+												体育学院
+
+											</td>
+											<td>
+												76
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												14
+											</td>
+											<td>
+												理学院
+											</td>
+											<td>
+												74
+											</td>
+										</tr>
+										<tr class="info">
+											<td>
+												15
+											</td>
+											<td>
+												法学院
+
+											</td>
+											<td>
+												58
+											</td>
 										</tr>
 									</tbody>
 								</table>
-								<div class="pagination pagination-centered">
+								<!--<div class="pagination pagination-centered">
 									<ul>
 										<li>
 											<a href="#">上一页</a>
@@ -140,19 +306,20 @@ h1 {
 											<a href="#">下一页</a>
 										</li>
 									</ul>
-								</div>
+								</div>-->
 							</div>
 						</div>
-						<div class="row-fluid">
-							<div class="span12"></div>
-						</div>
+						<!--<div class="row-fluid">
+							<div class="span12">
+							</div>
+						</div>-->
 					</div>
 
 				</div>
 			</div>
 		</div>
 		</div>
-
+		</div>
 	</body>
 	<script>
 		var playertype;
@@ -184,7 +351,7 @@ h1 {
 			searchcontext = $('.input-medium').val();
 			$.ajax({
 				type: "post",
-				url: "",
+				url: "indexAction/listTopPlayer.json",
 				async: true,
 				data: {
 					type: playertype,

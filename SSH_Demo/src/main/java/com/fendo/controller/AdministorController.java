@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdministorController {
 	 @RequestMapping("/")	
      @ResponseBody
-     public String mergePermissionActino(){
+     public String mergePermissionAction(){
 		 
 		 return "";
 	 }

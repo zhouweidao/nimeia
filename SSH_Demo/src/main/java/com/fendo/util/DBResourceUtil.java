@@ -4,9 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.fendo.entity.Player;
 
 
 public class DBResourceUtil {
+	
+	private static PlayerDto playerDto = new PlayerDto();
 	
 	private DBResourceUtil(){
 		throw new AssertionError();
@@ -50,6 +57,23 @@ public class DBResourceUtil {
 			e.printStackTrace();
 			throw new DbException("执行SQL语句时发生异常", e);
 		}
+    }
+    
+    public static PlayerDto getPlayerDtos(Player temPlayer,Integer scorenum,Integer clsnum,Integer marjronum,Integer deptnum,Integer schoolnum){
+    		playerDto.setId(temPlayer.getPlayerID());
+    		playerDto.setName(temPlayer.getPlayerName());
+    		playerDto.setSex(temPlayer.getSex());
+    		playerDto.setGrade(temPlayer.getGrade());
+    		playerDto.setCls(temPlayer.getClasses());
+    		playerDto.setMarjor(temPlayer.getMajor());
+    		playerDto.setDept(temPlayer.getDepName());
+    		playerDto.setScore(temPlayer.getScore());
+    		playerDto.setScorenum(scorenum);
+    		playerDto.setClsnum(clsnum);
+    		playerDto.setMarjornum(marjronum);
+    		playerDto.setDeptnum(deptnum);
+    		playerDto.setSchoolnum(schoolnum);
+		return playerDto;
     }
 
 }

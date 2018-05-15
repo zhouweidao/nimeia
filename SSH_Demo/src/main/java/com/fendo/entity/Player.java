@@ -12,10 +12,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="PLAYER")
 public class Player implements Serializable{
-
-	   
-	    
-
 	    @Column(name="player")
 	    private String player;
 	    @Id 
@@ -39,7 +35,7 @@ public class Player implements Serializable{
 	    @Column(name="depName")
 	    private String depName;
 	    @Column(name="Score")
-	    private String Score;
+	    private Integer Score;
 	    @Column(name="Tel")
 	    private String Tel;
 	    @Column(name="priority")
@@ -146,12 +142,12 @@ public class Player implements Serializable{
 		}
 
 
-		public String getScore() {
+		public Integer getScore() {
 			return Score;
 		}
 
 
-		public void setScore(String score) {
+		public void setScore(Integer score) {
 			Score = score;
 		}
 

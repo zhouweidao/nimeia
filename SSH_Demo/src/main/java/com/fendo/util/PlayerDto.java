@@ -9,8 +9,8 @@ public class PlayerDto {
 	private String cls;
 	private String marjor;
 	private String dept;
-	private String score;
-	private String scorenum;
+	private Integer score;
+	private Integer scorenum;
 	private Integer clsnum;
 	private Integer marjornum;
 	private Integer deptnum;
@@ -21,7 +21,7 @@ public class PlayerDto {
 	}
 
 	public PlayerDto(String id, String name, String sex, String grade, String cls, String marjor, String dept,
-			String score, String scorenum, Integer clsnum, Integer marjornum, Integer deptnum, Integer schoolnum) {
+			Integer score, Integer scorenum, Integer clsnum, Integer marjornum, Integer deptnum, Integer schoolnum) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -74,11 +74,11 @@ public class PlayerDto {
 		return cls;
 	}
 
-	public String getScorenum() {
+	public Integer getScorenum() {
 		return scorenum;
 	}
 
-	public void setScorenum(String scorenum) {
+	public void setScorenum(Integer scorenum) {
 		this.scorenum = scorenum;
 	}
 
@@ -102,11 +102,11 @@ public class PlayerDto {
 		this.dept = dept;
 	}
 
-	public String getScore() {
+	public Integer getScore() {
 		return score;
 	}
 
-	public void setScore(String score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 
