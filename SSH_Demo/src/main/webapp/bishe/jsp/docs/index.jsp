@@ -282,9 +282,37 @@
 										</tr>
 									</tbody>
 								</table>
-								
+								<!--<div class="pagination pagination-centered">
+									<ul>
+										<li>
+											<a href="#">上一页</a>
+										</li>
+										<li>
+											<a href="#">1</a>
+										</li>
+										<li>
+											<a href="#">2</a>
+										</li>
+										<li>
+											<a href="#">3</a>
+										</li>
+										<li>
+											<a href="#">4</a>
+										</li>
+										<li>
+											<a href="#">5</a>
+										</li>
+										<li>
+											<a href="#">下一页</a>
+										</li>
+									</ul>
+								</div>-->
 							</div>
 						</div>
+						<!--<div class="row-fluid">
+							<div class="span12">
+							</div>
+						</div>-->
 					</div>
 
 				</div>
@@ -331,9 +359,9 @@
 					searchCon: searchcontext
 				},
 				success: function(players) {
-
+					//下拉框输入框均为空>>>积分排行榜-1.1-《校内各院系总积分排行榜》----
 					if(playertype.equal("0") && playercontext.equal("0") && searchcontext == "") {
-						addCells(cells, '排名', '院系名', '院系总积分');
+						addCells(cells, '排名', '院系', '院系总积分');
 						var str = "";
 						for(var i = 0; i < cells.length; i++) {
 							$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
@@ -343,10 +371,11 @@
 							str += createtable(i, players[i].dept, players[i].score);
 							str += "</tr>";
 						}
-					} else if(!playertype.equal("0") && !playercontext.equal("0") && searchcontext != "") {
-						if(playertype.equal("1")) {
-							if(playercontext.equal("2")) {
-								addCells(cells, '运动员ID', '运动员姓名', '性别', '年级', '班级名', '专业名', '院系名', '个人积分', '班内排名', '业内排名', '院内排名', '校总排名');
+					}//下拉框选了'学生'+'运动员编号'>>>积分排行榜-1.2-《学生-个人积分排名》-
+					 else if(!playertype.equal("0") && !playercontext.equal("0") && searchcontext != "") {
+						if(playertype.equal("1")) {//下拉框选了1=='学生'//
+							if(playercontext.equal("2")) {//下拉框选了3=='运动员编号'//
+								addCells(cells, '运动员ID', '运动员姓名', '性别', '年级', '班级', '专业', '院系', '个人积分', '班内排名', '业内排名', '院内排名', '校总排名');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
@@ -357,97 +386,95 @@
 										players[i].cls, players[i].marjor, players[i].dept, players[i].score, clsnum, marjornum, deptnum, schoolnum);
 									str += "</tr>";
 								}
-							}
-							if(playercontext.equal("3")) {
-								addCells(cells, '排名', '专业名', '专业总积分');
+							}//下拉框选了'学生'+'院校'>>>积分排行榜-1.3-《学生-院系内内积分排名前x名运动员-积分排行榜》-
+							if(playercontext.equal("3")) {//下拉框选了3=='院校'//
+								addCells(cells, '排名', '运动员姓名', '性别', '班级', '个人总积分');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
 								}
 								for(var i = 0; i < players.length; i++) {
 									str += "<tr class=''>"
-									str += createtable(i, players[i].marjor, players[i].score);
+									str += createtable(i, players[i].name, players[i].sex, players[i].cls, players[i].score);
+									str += "</tr>";
+								}
+							}//下拉框选了'学生'+'项目名'.>>>积分排行榜-1.4-《学生-各项目的最高纪录榜》- 
+							if(playercontext.equal("4")) {//下拉框选了4=='项目名'//
+								addCells(cells, '排名', '运动员姓名', '性别', '项目成绩');
+								var str = "";
+								for(var i = 0; i < cells.length; i++) {
+									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
+								}
+								for(var i = 0; i < players.length; i++) {
+									str += "<tr class=''>"
+									str += createtable(i, players[i].name, players[i].sex, players[i].record);
+									str += "</tr>";
+								}
+								addReaport(searchcontext);//单独显示：【 项目记录，纪录保持者】
+							}//下拉框选了'学生'+'项目名'.>>>积分排行榜-1.5-《学生-专业内积分排名前x名运动员-积分排名榜》- 
+							if(playercontext.equal("5")) {//下拉框选了5=='专业'//
+								addCells(cells, '排名', '运动员姓名', '性别', '班级', '个人积分');
+								var str = "";
+								for(var i = 0; i < cells.length; i++) {
+									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
+								}
+								for(var i = 0; i < players.length; i++) {
+									str += "<tr class=''>"
+									str += createtable(i, players[i].name, players[i].sex, players[i].cls, players[i].score);
+									str += "</tr>";
+								}
+							}//下拉框选了'学生'+'班级'.>>>积分排行榜-1.6-《班级内部排行榜》- 
+							if(playercontext.equal("6")) {//下拉框选了6=='班级'//
+								addCells(cells, '排名', '运动员姓名', '性别', '个人积分');
+								var str = "";
+								for(var i = 0; i < cells.length; i++) {
+									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
+								}
+								for(var i = 0; i < players.length; i++) {
+									str += "<tr class=''>"
+									str += createtable(i, players[i].name, players[i].sex, players[i].score);
 									str += "</tr>";
 								}
 							}
-							if(playercontext.equal("4")) {
-								addCells(cells, '排名', '运动员姓名', '项目成绩');
+						} else {//下拉框选了'教师'+'运动员编号'>>>积分排行榜-2.1-《教师-个人积分排名》-
+							if(playercontext.equal("2")) {//下拉框选了6=='运动员编号'//
+								addCells(cells, '排名', '运动员ID', '运动员姓名', '性别', '院系', '个人积分', '院内排名', '校总排名');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
 								}
 								for(var i = 0; i < players.length; i++) {
 									str += "<tr class=''>"
-									str += createtable(i, players[i].name, players[i].score);
-									str += "</tr>";
-								}
-								addReaport(searchcontext);
-							}
-							if(playercontext.equal("5")) {
-								addCells(cells, '排名', '班级名', '班级总积分');
-								var str = "";
-								for(var i = 0; i < cells.length; i++) {
-									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
-								}
-								for(var i = 0; i < players.length; i++) {
-									str += "<tr class=''>"
-									str += createtable(i, players[i].name, players[i].score);
-									str += "</tr>";
-								}
-							}
-							if(playercontext.equal("6")) {
-								addCells(cells, '排名', '运动员姓名', '班级名', '个人积分');
-								var str = "";
-								for(var i = 0; i < cells.length; i++) {
-									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
-								}
-								for(var i = 0; i < players.length; i++) {
-									str += "<tr class=''>"
-									str += createtable(i, players[i].name, players[i].cls, players[i].score);
-									str += "</tr>";
-								}
-							}
-						} else {
-							if(playercontext.equal("2")) {
-								addCells(cells, '运动员ID', '运动员姓名', '性别', '院系名', '个人积分', '院内排名', '校总排名');
-								var str = "";
-								for(var i = 0; i < cells.length; i++) {
-									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
-								}
-								for(var i = 0; i < players.length; i++) {
-									str += "<tr class=''>"
-									str += createtable(players[i].id, players[i].name, players[i].sex, players[i].dept, players[i].score,
+									str += createtable(i, players[i].id, players[i].name, players[i].sex, players[i].dept, players[i].score,
 										players[i].deptnum, players[i].schoolnum);
 									str += "</tr>";
 								}
 
-							}
-							if(playercontext.equal("3")) {
-								addCells(cells, '排名', '运动员ID', '运动员姓名', '性别', '个人积分', '院系名');
+							}//下拉框选了'教师'+'院校'>>>积分排行榜-2.2-《教师-校内各院系积分排行榜》-
+							if(playercontext.equal("3")) {//下拉框选了3=='院系'//
+								addCells(cells, '排名', '运动员姓名', '性别', '个人积分');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
 								}
 								for(var i = 0; i < players.length; i++) {
 									str += "<tr class=''>"
-									str += createtable(i, players[i].id, players[i].name, players[i].sex, players[i].score, players[i].dept);
+									str += createtable(i, players[i].name, players[i].sex, players[i].score);
 									str += "</tr>";
 								}
-							}
-							if(playercontext.equal("4")) {
-								addCells(cells, '排名', '运动员姓名', '项目成绩');
+							}//下拉框选了'教师'+'院校'>>>积分排行榜-2.3-《教师-各项目的最高纪录榜》-
+							if(playercontext.equal("4")) {//下拉框选了4=='项目名'//
+								addCells(cells, '排名', '运动员姓名', '性别', '项目成绩');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
 								}
 								for(var i = 0; i < players.length; i++) {
 									str += "<tr class=''>"
-									str += createtable(i, players[i].name, players[i].score);
+									str += createtable(i, players[i].name, players[i].sex, players[i].record);
 									str += "</tr>";
 								}
-								
-								addReaport(searchcontext);
-
+								addReaport(searchcontext);//单独显示：【 项目记录，纪录保持者】
 							}
 						}
 					} else {
