@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.fendo.entity.SystemController;
 import com.fendo.service.PlayerService;
 import com.fendo.service.SystemControllerService;
@@ -25,6 +26,13 @@ public class PlayerAction {
 		
 		return "";
 	}
+	
+	@RequestMapping("/showItemInfo.json")
+	@ResponseBody
+	public String showItemInfoAction(String sex){
+		return JSON.toJSONString(playerservice.findAllItemName(sex));
+	}
+	
 	
 	@RequestMapping("/showPlayerInfo.json")
 	@ResponseBody

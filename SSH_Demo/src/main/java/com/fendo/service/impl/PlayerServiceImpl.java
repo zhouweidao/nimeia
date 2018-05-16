@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fendo.dao.AdminDao;
+import com.fendo.dao.ItemDao;
 import com.fendo.dao.PlayerDao;
 import com.fendo.entity.Admin;
+import com.fendo.entity.Item;
 import com.fendo.entity.Player;
 import com.fendo.service.PlayerService;
 import com.fendo.util.PlayerDto;
@@ -19,6 +21,8 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 	private PlayerDao playDao;
 	@Autowired
 	private AdminDao adminDao;
+	@Autowired
+	private ItemDao itemDao;
 
 	@Override
 	public String login(String username, String pswd, String type) {
@@ -66,6 +70,12 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 	public List<PlayerDto> findAllTopPlayer(String playertype, String playercontext, String searchcontext) {
 		// TODO Auto-generated method stub
 		return playDao.findPlayers();
+	}
+
+	@Override
+	public List<Item> findAllItemName(String sex) {
+		// TODO Auto-generated method stub
+		return itemDao.listAllItemName(sex);
 	}
 
 }

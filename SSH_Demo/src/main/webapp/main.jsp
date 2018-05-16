@@ -116,7 +116,7 @@
 							</span>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary btn-lg btn-block" id="loginBtnA" data-loading-text="登录中...">登录</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block loginBtn" id="loginBtnA" data-loading-text="登录中...">登录</button>
 							<a href="" style="text-decoration: none;"><span>忘记密码</span></a>
 						</div>
 					</div>
@@ -148,7 +148,7 @@
 							</span>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary btn-lg btn-block" id="loginBtnB" data-loading-text="登录中...">登录</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block loginBtn" id="loginBtnB" data-loading-text="登录中...">登录</button>
 							<a href="" style="text-decoration: none;"><span>忘记密码</span></a>
 						</div>
 					</div>
@@ -181,7 +181,7 @@
 							</span>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary btn-lg btn-block" id="loginBtnC" data-loading-text="登录中...">登录</button>
+							<button type="button" class="btn btn-primary btn-lg btn-block loginBtn" id="loginBtnC" data-loading-text="登录中...">登录</button>
 							<a href="" style="text-decoration: none;"><span>忘记密码</span></a>
 						</div>
 					</div>
@@ -192,22 +192,22 @@
 	
 
    	$(function(){
-		$('#loginBtnA').click(function(event){
+		$('.loginBtn').click(function(event){
 			 var username = $('#username').val();
 			alert("username:"+username);
 			var pasw = $('#password').val();
 			alert("password:"+pasw);
-			var classname = event.target.className;
+			var id = event.target.id;
 			var type = 0;
-			if(classname.indexOf("loginBtnA") != -1){
+			if(id.indexOf("loginBtnA") != -1){
 				alert("A");
 			  	type = 1;
 			}
-			if(classname.indexOf("loginBtnB") != -1){
+			if(id.indexOf("loginBtnB") != -1){
 				alert("B");
 				type = 2;
 			}
-			if(classname.indexOf("loginBtnC") != -1){
+			if(id.indexOf("loginBtnC") != -1){
 				alert("C");
 				type = 3;
 			}
@@ -222,7 +222,7 @@
 					type : type
 				},
 				success : function(result){
-					alert("登陆成功");
+					alert(result);
 				}
 			});
 		}); 

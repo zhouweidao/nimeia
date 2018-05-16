@@ -32,7 +32,7 @@ public class PlayerEntryForm implements Serializable{
     @Column(name="itemNo")
     private String itemNo;
     @Column(name="itemScore")
-    private String itemScore;
+    private Integer itemScore;
     @Column(name="record")
     private String record;
     
@@ -117,12 +117,12 @@ public class PlayerEntryForm implements Serializable{
 	}
 
 
-	public String getItemScore() {
+	public Integer getItemScore() {
 		return itemScore;
 	}
 
 
-	public void setItemScore(String itemScore) {
+	public void setItemScore(Integer itemScore) {
 		this.itemScore = itemScore;
 	}
 
