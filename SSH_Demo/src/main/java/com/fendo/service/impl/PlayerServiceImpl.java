@@ -43,7 +43,7 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 					}
 				}
 			} else {
-				Admin admin = adminDao.get(username, Admin.class);
+				Admin admin = adminDao.getAdminByAdminID(username);
 				if (admin != null) {
 					if (username.equals(admin.getAdminID()) && pswd.equals(admin.getPassword())) {
 						if (ntype == 2) {
@@ -67,15 +67,53 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 	}
 
 	@Override
-	public List<PlayerDto> findAllTopPlayer(String playertype, String playercontext, String searchcontext) {
+	public List<PlayerDto> findAllTopPlayer(String playertype, String playercontext, String searchcontext,
+			String typeName, String contextName) {
 		// TODO Auto-generated method stub
-		return playDao.findPlayers();
+		System.out.println(playertype+":"+playercontext+":"+searchcontext);
+		String temp = "";
+		if (!playertype.equals("0") && !playercontext.equals("0") && !"".equals(searchcontext)) {
+			if (playercontext.equals("4")) {
+				temp = "itemName";
+				return playDao.findPlayersByItemName(typeName, searchcontext);
+			} else {
+				if (playercontext.equals("2")) {
+					temp = "playerID";
+				} else if (playercontext.equals("3")) {
+					temp = "depName";
+				} else if (playercontext.equals("5")) {
+					temp = "major";
+				} else if (playercontext.equals("6")) {
+					temp = "Class";
+				}
+				return playDao.findPlayers(typeName, temp, searchcontext);
+			}
+		} else if (playertype.equals("0") && playercontext.equals("0") && "".equals(searchcontext)) {
+			System.out.println("jinlaile");
+			return playDao.findSchoolPlayers();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Item> findAllItemName(String sex) {
 		// TODO Auto-generated method stub
 		return itemDao.listAllItemName(sex);
+	}
+
+	@Override
+	public void editPlayerInfo(String playerid, String uaername, String sex, String dept, String cls, String phonenum,
+			String usertype) {
+		// TODO Auto-generated method stub
+		Player player = playDao.get(playerid,Player.class);
+		player.setPlayerID(playerid);
+		player.setPlayerName(uaername);
+		player.setSex(sex);
+		player.setDepName(dept);
+		player.setClasses(cls);
+		player.setTel(phonenum);
+		playDao.update(player);
 	}
 
 }

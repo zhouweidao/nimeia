@@ -13,8 +13,9 @@ public interface PlayerDao extends BaseDao<Player> {
 
 	PageBean<Player> findAllEmpsByDeptNo(Integer no, int page, int size);
 
-	List<PlayerDto> findPlayers();
+	List<PlayerDto> findPlayers(String playerType,String temp,String paraName);
 	
+	List<PlayerDto> findPlayersByItemName(String playertype,String paraName);
 
 	/**
 	 * 获得当前项目最大报名人数
@@ -29,6 +30,8 @@ public interface PlayerDao extends BaseDao<Player> {
 	 * @return
 	 */
 	Integer CountplayerJoinNum(String playerid);
+
+	List<PlayerDto> findSchoolPlayers();
 	
 	/**
 	 * 

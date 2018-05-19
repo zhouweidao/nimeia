@@ -19,8 +19,9 @@ import com.fendo.entity.Admin;
 import com.fendo.util.PageBean;
 
 @Repository
+@Transactional
 public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao {
-	private static final String GET_ADMIN = "SELECT * FROM ADMIN WHERE ADMINID = ?";
+	private static final String GET_ADMIN = "from Admin where adminID = ?";
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -28,7 +29,13 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin> implements AdminDao {
 	@Override
 	public Admin getAdminByAdminID(String adminid) {
 		// TODO Auto-generated method stub
-		return (Admin) sessionFactory.getCurrentSession().createQuery(GET_ADMIN).getResultList().get(0);
+		return (Admin) sessionFactory.getCurrentSession().createQuery(GET_ADMIN).setParameter(0, adminid).getResultList().get(0);
+	}
+
+	@Override
+	public Admin getByID(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	}

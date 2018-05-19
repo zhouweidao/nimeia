@@ -18,6 +18,7 @@ import com.fendo.entity.DepEntryForm;
 import com.fendo.util.PageBean;
 
 @Repository
+@Transactional
 public class DepEntryFormDaoImpl extends BaseDaoImpl<DepEntryForm> implements DepEntryFormDao {
 
 	}

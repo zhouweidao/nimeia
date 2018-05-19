@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 import com.fendo.dao.PlayerDao;
@@ -32,14 +33,16 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/index.json")
-	public String toHomeAction(){
+	public String toHomeAction(HttpServletRequest request){
 		return "main";
 	}
 	
-	@RequestMapping("/listTopPlayer.json")
+	@RequestMapping(value = "/listTopPlayer.json",produces={"text/html;charset=UTF-8;","application/json;"})
 	@ResponseBody
-	public String listTopPlayerAction(String playertype,String playercontext,String searchcontext){
-		return JsonUtil.ToJson(playerservice.findAllTopPlayer(playertype,playercontext,searchcontext));
+	public String listTopPlayerAction(String type,String context,String searchCon,String typeName,String contextName){
+		String jsonString = JSON.toJSONString(playerservice.findAllTopPlayer(type,context,searchCon,typeName,contextName));
+		System.out.println(jsonString);
+		return jsonString;
 	}
 	
 	/**
@@ -47,23 +50,20 @@ public class IndexController {
 	 * @param admin 接收到的登录用户信息，通过RequestBody组装成对象
 	 * @return 登录后跳转到的页面
 	 */
-	@RequestMapping("/login.html")
-	public ModelAndView loginAction(String username,String pasw,String type,ModelAndView modelAndView,HttpServletRequest request) {
-		System.out.println(type);
+	@RequestMapping(value = "/login.html")
+	@ResponseBody
+	public String loginAction(String username,String pasw,String type,ModelAndView modelAndView,HttpServletRequest request) {
 		String result = playerservice.login(username, pasw, type);
 		if(result.equals("playinfo")){
-			modelAndView.setViewName("playerinfo");
-			return modelAndView.addObject("player", playerservice.get(username));
+			 String player = JSON.toJSONString(playerservice.get(username));
+			 System.out.println(player.toString());
+			request.getSession().setAttribute("player",player);
 		}else if(result.equals("managerinfo")){
-			modelAndView.setViewName("managerinfo");
-			return modelAndView.addObject("manager", adminservice.get(username));
+			request.getSession().setAttribute("manager", JSON.toJSONString(adminservice.getByID(username)));
 		}else if(result.equals("admininfo")){
-			modelAndView.setViewName("admininfo");
-			return modelAndView.addObject("admininfo", adminservice.get(username));
-		}else{
-			modelAndView.setViewName("main");
-			return modelAndView;
+			request.getSession().setAttribute("admin", JSON.toJSONString(adminservice.getByID(username)));
 		}
+		return JSON.toJSONString(result);
 	}
 
 }

@@ -13,8 +13,6 @@ import com.fendo.entity.Player;
 
 public class DBResourceUtil {
 	
-	private static PlayerDto playerDto = new PlayerDto();
-	
 	private DBResourceUtil(){
 		throw new AssertionError();
 	}
@@ -60,6 +58,7 @@ public class DBResourceUtil {
     }
     
     public static PlayerDto getPlayerDtos(Player temPlayer,Integer scorenum,Integer clsnum,Integer marjronum,Integer deptnum,Integer schoolnum){
+    	    PlayerDto playerDto = new PlayerDto();
     		playerDto.setId(temPlayer.getPlayerID());
     		playerDto.setName(temPlayer.getPlayerName());
     		playerDto.setSex(temPlayer.getSex());

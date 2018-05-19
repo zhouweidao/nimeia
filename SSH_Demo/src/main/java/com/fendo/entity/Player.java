@@ -181,9 +181,14 @@ public class Player implements Serializable{
 			this.playerEntryNum = playerEntryNum;
 		}
 
-
 		@Override
-	    public String toString() {
-	        return "User:[id="+playerID+",name="+playerName+",Score="+Score+"]";
-	    }
+		public String toString() {
+			return "Player [player=" + player + ", playerID=" + playerID + ", password=" + password + ", playerName="
+					+ playerName + ", sex=" + sex + ", classes=" + classes + ", grade=" + grade + ", major=" + major
+					+ ", depID=" + depID + ", depName=" + depName + ", Score=" + Score + ", Tel=" + Tel + ", priority="
+					+ priority + ", playerEntryNum=" + playerEntryNum + "]";
+		}
+
+
+	
 }

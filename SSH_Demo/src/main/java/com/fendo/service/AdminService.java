@@ -10,4 +10,6 @@ public interface AdminService extends BaseService<Admin>{
 
 	void setPripority(String adminid, String usertype, String pripority);
 
+	Admin getByID(String username);
+
 }

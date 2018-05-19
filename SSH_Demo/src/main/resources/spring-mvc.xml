@@ -41,6 +41,14 @@ default-lazy-init="true">
     <mvc:resources location="/js/*" mapping="/js/**" />  
     <mvc:resources location="/images/*" mapping="/images/**" />  
     
+    
+    <mvc:annotation-driven>  
+    <mvc:message-converters>  
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+            <property name="supportedMediaTypes" value="text/html;charset=utf-8"></property>  
+        </bean>  
+    </mvc:message-converters>  
+</mvc:annotation-driven> 
     	<!-- 配置拦截器 -->
 <!-- 	<mvc:interceptors>
 		<mvc:interceptor>

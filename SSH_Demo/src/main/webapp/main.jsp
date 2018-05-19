@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -80,6 +81,7 @@
 						<a id="Login_start2_" data-toggle="modal" data-target="#loginModalC" data-whatever="@mdo">系统管理员登录</a>
 					</li>
 				</ul>
+				
 			</div>
 			
 			
@@ -100,13 +102,13 @@
 							<h4 class="modal-title" id="loginModalLabel" style="text-align: center;">运动员登录</h4>
 						</div>
 						<div class="modal-body" >
-							<form id="login-form">
+							<form id="login-forma">
 								<div class="form-group" style="position:relative;">
-									<input type="text" class="form-control" name="uname" placeholder="请输入用户名" id="username">
+									<input type="text" class="form-control usernameA" name="uname" placeholder="请输入用户名" >
 									<i class="fa fa-user-o fa-lg" style="position: absolute;top:10px;right: 10px;"></i>
 								</div>
 								<div class="form-group" style="position:relative;">
-									<input type="password" class="form-control" name="passwd" placeholder="请输入密码" id="password">
+									<input type="password" class="form-control passwordA" name="passwd" placeholder="请输入密码" >
 									<i class="fa fa-lock fa-lg" style="position: absolute;top:10px;right: 12px;"></i>
 								</div>
 								<div>
@@ -132,13 +134,13 @@
 							<h4 class="modal-title" id="loginModalLabel" style="text-align: center;">赛事管理员登录</h4>
 						</div>
 						<div class="modal-body" >
-							<form id="login-form">
+							<form id="login-formb">
 								<div class="form-group" style="position:relative;">
-									<input type="text" class="form-control" name="uname" placeholder="请输入用户名" id="username">
+									<input type="text" class="form-control usernameB" name="uname" placeholder="请输入用户名">
 									<i class="fa fa-user-o fa-lg" style="position: absolute;top:10px;right: 10px;"></i>
 								</div>
 								<div class="form-group" style="position:relative;">
-									<input type="password" class="form-control" name="passwd" placeholder="请输入密码" id="password">
+									<input type="password" class="form-control passwordB" name="passwd" placeholder="请输入密码">
 									<i class="fa fa-lock fa-lg" style="position: absolute;top:10px;right: 12px;"></i>
 								</div>
 								<div>
@@ -164,13 +166,13 @@
 							<h4 class="modal-title" id="loginModalLabel" style="text-align: center;">系统管理员登录</h4>
 						</div>
 						<div class="modal-body" >
-							<form id="login-form">
+							<form id="login-formc">
 								<div class="form-group" style="position:relative;">
-									<input type="text" class="form-control" name="uname" placeholder="请输入用户名" id="username">
+									<input type="text" class="form-control usernameC" name="uname" placeholder="请输入用户名">
 									<i class="fa fa-user-o fa-lg" style="position: absolute;top:10px;right: 10px;"></i>
 								</div>
 								<div class="form-group" style="position:relative;">
-									<input type="password" class="form-control" name="passwd" placeholder="请输入密码" id="password">
+									<input type="password" class="form-control passwordC" name="passwd" placeholder="请输入密码" >
 									<i class="fa fa-lock fa-lg" style="position: absolute;top:10px;right: 12px;"></i>
 								</div>
 								<div id="showDetails">
@@ -193,22 +195,23 @@
 
    	$(function(){
 		$('.loginBtn').click(function(event){
-			 var username = $('#username').val();
-			alert("username:"+username);
-			var pasw = $('#password').val();
-			alert("password:"+pasw);
 			var id = event.target.id;
+			var username;
+			var pasw;
 			var type = 0;
 			if(id.indexOf("loginBtnA") != -1){
-				alert("A");
+				 username = $('.usernameA').val();
+				 pasw = $('.passwordA').val();
 			  	type = 1;
 			}
 			if(id.indexOf("loginBtnB") != -1){
-				alert("B");
+				 username = $('.usernameB').val();
+				 pasw = $('.passwordB').val();
 				type = 2;
 			}
 			if(id.indexOf("loginBtnC") != -1){
-				alert("C");
+				 username = $('.usernameC').val();
+				 pasw = $('.passwordC').val();
 				type = 3;
 			}
 			alert("type:"+type);
@@ -222,7 +225,17 @@
 					type : type
 				},
 				success : function(result){
-					alert(result);
+					$('.modal-backdrop,.modal').hide();
+					var resultStr = JSON.parse(result);
+					if(result.indexOf("playinfo")!=-1){
+						$("iframe").attr("src","bishe/jsp/docs/playerinfo.jsp");
+					}else if(result.indexOf("managerinfo")!=-1){
+						$("iframe").attr("src","bishe/jsp/docs/managerinfo.jsp");
+					}else if(result.indexOf("admininfo")!=-1){
+						$("iframe").attr("src","bishe/jsp/docs/admininfo.jsp");
+					}else{
+						alert(result);
+					}
 				}
 			});
 		}); 

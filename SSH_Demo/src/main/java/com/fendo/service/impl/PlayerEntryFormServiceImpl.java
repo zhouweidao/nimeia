@@ -5,15 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+import com.fendo.dao.PlayerDao;
 import com.fendo.dao.PlayerEntryFormDao;
 import com.fendo.entity.PlayerEntryForm;
 import com.fendo.service.PlayerEntryFormService;
+import com.fendo.util.PlayerInfoDto;
 @Service
 public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm> implements PlayerEntryFormService{
 
 	@Autowired
 	PlayerEntryFormDao playerEntryFromDao;
-	
+	@Autowired
+	PlayerDao playerDao;
 	@Override
 	public List<PlayerEntryForm> findAllPlayerEntryForm(String itemid) {
 		// TODO Auto-generated method stub
@@ -36,6 +40,20 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 	public void repealPlayerScore(String itemid, String playerid) {
 		// TODO Auto-generated method stub
 		playerEntryFromDao.deletePlayerEntryForm(itemid,playerid);
+	}
+
+	@Override
+	public PlayerInfoDto findAllPlayerEntryFormByPlayerID(String playerid,String deptName) {
+		// TODO Auto-generated method stub
+		int deptnum = playerEntryFromDao.getPlayerDeptNum(playerid,deptName);
+		int schoolnum = playerEntryFromDao.getPlayerSchoolNum(playerid);
+		List<PlayerEntryForm> entyrFormByID = playerEntryFromDao.listAllPlayerEntyrFormByID(playerid);
+		int tem = 0;
+		for(int i = 0;i<entyrFormByID.size();i++){
+			tem += entyrFormByID.get(i).getItemScore();
+		}
+		PlayerInfoDto playerInfoDto = new PlayerInfoDto(entyrFormByID,String.valueOf(tem),String.valueOf(deptnum),String.valueOf(schoolnum));
+		return playerInfoDto;
 	}
 
 }

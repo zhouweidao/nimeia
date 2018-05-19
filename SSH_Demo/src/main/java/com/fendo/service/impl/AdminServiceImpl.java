@@ -18,7 +18,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
 	@Override
 	public void updatePassword(String adminID,String password) {
 		// TODO Auto-generated method stub
-		Admin admin = adminDao.get(adminID, Admin.class);
+		Admin admin = adminDao.getAdminByAdminID(adminID);
 		admin.setPassword(password);
 		adminDao.update(admin);
 	}
@@ -29,7 +29,16 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
 	public void setPripority(String adminid, String usertype, String pripority) {
 		// TODO Auto-generated method stub
 		Admin admin = adminDao.getAdminByAdminID(adminid);
+		System.out.println(adminid.toString()+":"+pripority);
 		admin.setPriority(Integer.parseInt(pripority));
 		adminDao.update(admin);
+	}
+
+
+
+	@Override
+	public Admin getByID(String username) {
+		// TODO Auto-generated method stub
+		return adminDao.getAdminByAdminID(username);
 	}
 }

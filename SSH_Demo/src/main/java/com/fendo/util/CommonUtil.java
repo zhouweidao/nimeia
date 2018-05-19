@@ -99,4 +99,9 @@ public final class CommonUtil {
 			return format.format(date);
 	}
 	
+	public static Integer doubleToInteger(Double doublenum){
+		 String s1 = String.valueOf(doublenum);
+		 String s2 = s1.substring(0, s1.indexOf(".")) + s1.substring(s1.indexOf(".")+1);
+		 return Integer.parseInt(s2); 
+	}
 }

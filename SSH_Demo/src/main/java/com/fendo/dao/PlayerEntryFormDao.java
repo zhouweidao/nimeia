@@ -17,4 +17,10 @@ public interface PlayerEntryFormDao extends BaseDao<PlayerEntryForm>{
 	void deletePlayerEntryForm(String itemid, String playerid);
 	
 	PlayerEntryForm getPlayerEntryForm(String itemid,String playerid);
+
+	Integer getPlayerDeptNum(String playerid, String deptName);
+
+	Integer getPlayerSchoolNum(String playerid);
+
+	List<PlayerEntryForm> listAllPlayerEntyrFormByID(String playerid);
 }

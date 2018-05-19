@@ -26,20 +26,17 @@ public class AdministorController {
 	AdminService adminService;
 	
 	@RequestMapping("/editPripority.json")
-	@ResponseBody
 	public void mergePermissionAction(String adminid,String usertype,String pripority) {
-
+		
 		 adminService.setPripority(adminid,usertype,pripority);
 	}
 	
 	@RequestMapping("/editPasswordAction.json")
-	@ResponseBody
 	public void editPasswordAction(String adminID,String paswd){
 		adminService.updatePassword(adminID,paswd);
 	}
 
 	@RequestMapping("/startOrCloseApplyAction.json")
-	@ResponseBody
 	public void startOrCloseApplyAction(String role) {
 		Boolean temp = false;
 		int tempnum = 0;
@@ -60,8 +57,8 @@ public class AdministorController {
 
 	@RequestMapping("/listAllItemName.json")
 	@ResponseBody
-	public String listAllItemNameAction(String itemType, String sex) {
-		return JSON.toJSONString(itemService.findAllItemName(sex, itemType));
+	public String listAllItemNameAction(String itemType, String itemsex) {
+		return JSON.toJSONString(itemService.findAllItemName(itemsex, itemType));
 	}
 
 	@RequestMapping("/listAllPlayerName.json")
@@ -76,7 +73,7 @@ public class AdministorController {
 		playerEntryFormService.repealPlayerScore(itemid,playerid);
 	}
 	
-	@RequestMapping("/SavePlayerScore.json")
+	@RequestMapping("/savePlayerScore.json")
 	@ResponseBody
 	public void SavePlayerScoreAction(String itemid,String playerid,String paiming,String score,String itemname,String itemtype){
 		playerEntryFormService.saveScore(itemid,playerid,paiming,score,itemname,itemtype);

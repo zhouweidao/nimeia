@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,23 +16,24 @@ import com.fendo.dao.PlayerDao;
 import com.fendo.entity.DepEntryForm;
 import com.fendo.entity.Item;
 import com.fendo.entity.Player;
+import com.fendo.util.CommonUtil;
 import com.fendo.util.DBResourceUtil;
 import com.fendo.util.PageBean;
 import com.fendo.util.PlayerDto;
 
 @Repository
+@Transactional
 public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 	private static List<PlayerDto> playerdtos = new ArrayList<>();
 	@Autowired
 	SessionFactory sessionfactory;
-	private static final String COUNT_PLAYER = "SELECT COUNT(PLAYERID) FROM PLYAERENTRYFORM WHERE PLAYERID = ?;";
-	private static final String GET_ITEM_MAXJOIN_NUM_STRING = "SELECT ITEMMAX,DEPENTRYFORM FROM DEPENTRYFROM WHERE DEPID = ? AND ITEMID = ?;";
-	private static final String LIST_ITEM_NAME = "SELECT DISTINCT ITEMID,ITENNAME FROM ITEM WHERE ITEMSEX = ?;";
-	private static final String FIND_PLAYER_SQL = "select * from player ORDER BY Score ASC LIMIT 0,14;";
-	private static final String GET_CLSNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno:=@rowno+1) as rowno FROM player a,(select (@rowno:=0)) b WHERE a.Class=? ORDER BY Score DESC) c WHERE c.playerID=?;";
-	private static final String GET_MARJORNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno:=@rowno+1) as rowno FROM player a,(select (@rowno:=0)) b WHERE a.major=? ORDER BY Score DESC) c WHERE c.playerID=?;";
-	private static final String GET_DEPTNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno:=@rowno+1) as rowno FROM player a,(select (@rowno:=0)) b WHERE a.depName=? ORDER BY Score DESC) c WHERE c.playerID=?;";
-	private static final String GET_SCHOOLNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno:=@rowno+1) as rowno FROM player a,(select (@rowno:=0)) b ORDER BY Score DESC) c WHERE c.playerID=?;";
+	private static final String COUNT_PLAYER = "SELECT COUNT(PLAYERID) FROM PLYAERENTRYFORM WHERE PLAYERID = ?";
+	private static final String GET_ITEM_MAXJOIN_NUM_STRING = "SELECT ITEMMAX,DEPENTRYFORM FROM DEPENTRYFROM WHERE DEPID = ? AND ITEMID = ?";
+	private static final String LIST_ITEM_NAME = "SELECT DISTINCT ITEMID,ITENNAME FROM ITEM WHERE ITEMSEX = ?";
+	private static final String GET_CLSNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b WHERE a.Class=? ORDER BY Score DESC) c WHERE c.playerID=?";
+	private static final String GET_MARJORNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b WHERE a.major=? ORDER BY Score DESC) c WHERE c.playerID=?";
+	private static final String GET_DEPTNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b WHERE a.depName=? ORDER BY Score DESC) c WHERE c.playerID=?";
+	private static final String GET_SCHOOLNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b ORDER BY Score DESC) c WHERE c.playerID=?";
 	@Override
 	public PageBean<Player> findAllEmpsByDeptNo(Integer no, int page, int size) {
 		// TODO Auto-generated method stub
@@ -37,26 +41,39 @@ public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerDto> findPlayers() {
+	public List<PlayerDto> findPlayers(String playertype,String temp ,String paraName) {
 		// TODO Auto-generated method stub
+		if(temp.equals("Class")){
+			temp = "classes";
+		}
+		String FIND_PLAYER_SQL = "from Player where player = '"+playertype+"' and "+temp+" ='"+paraName+"' ORDER BY Score DESC";
+		
+		playerdtos.clear();
 		int count = 0;
 		int clsnum = 0;
 		int marjornum = 0;
 		int deptnum = 0;
 		int schoolnum = 0;
-		System.out.println(sessionfactory);
-		List<Player> players = sessionfactory.getCurrentSession().createQuery(FIND_PLAYER_SQL).getResultList();
+		List<Player> players = sessionfactory.getCurrentSession().createQuery(FIND_PLAYER_SQL).setFirstResult(0).setMaxResults(15).getResultList();
+		if(players.size()!=0){
 		Iterator<Player> iterator = players.iterator();
 		Player temPlayer = new Player();
 		while(iterator.hasNext()){
 			count++;
 			temPlayer = iterator.next();
-			clsnum = (int) sessionfactory.getCurrentSession().createQuery(GET_CLSNUM_SQL).setParameter(0, temPlayer.getClass()).setParameter(1,temPlayer.getPlayerID()).getSingleResult();
-			marjornum = (int) sessionfactory.getCurrentSession().createQuery(GET_MARJORNUM_SQL).setParameter(0, temPlayer.getMajor()).setParameter(1, temPlayer.getPlayerID()).getSingleResult();
-			deptnum = (int) sessionfactory.getCurrentSession().createQuery(GET_DEPTNUM_SQL).setParameter(0, temPlayer.getDepName()).setParameter(1, temPlayer.getPlayerID()).getSingleResult();
-			schoolnum = sessionfactory.getCurrentSession().createQuery(GET_SCHOOLNUM_SQL).setParameter(0, temPlayer.getPlayerID()).getFirstResult();
-			playerdtos.add(DBResourceUtil.getPlayerDtos(iterator.next(), count, clsnum, marjornum, deptnum, schoolnum));
+			String GET_CLSNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b WHERE a.Class= '"+temPlayer.getClasses()+"' ORDER BY Score DESC) c WHERE c.playerID= '"+temPlayer.getPlayerID()+"'";
+			String GET_MARJORNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b WHERE a.major='"+temPlayer.getMajor()+"' ORDER BY Score DESC) c WHERE c.playerID='"+temPlayer.getPlayerID()+"'";
+			String GET_DEPTNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b WHERE a.depName='"+temPlayer.getDepName()+"' ORDER BY Score DESC) c WHERE c.playerID='"+temPlayer.getPlayerID()+"'";
+			String GET_SCHOOLNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b ORDER BY Score DESC) c WHERE c.playerID='"+temPlayer.getPlayerID()+"'";
+			System.out.println(temPlayer.getClasses()+temPlayer.getMajor()+temPlayer.getDepName()+temPlayer.getPlayerID());
+			clsnum = CommonUtil.doubleToInteger((Double) sessionfactory.getCurrentSession().createSQLQuery(GET_CLSNUM_SQL).getResultList().get(0));
+			marjornum = CommonUtil.doubleToInteger((Double)sessionfactory.getCurrentSession().createSQLQuery(GET_MARJORNUM_SQL).getResultList().get(0));
+			deptnum = CommonUtil.doubleToInteger((Double)sessionfactory.getCurrentSession().createSQLQuery(GET_DEPTNUM_SQL).getResultList().get(0));
+			schoolnum = CommonUtil.doubleToInteger((Double)sessionfactory.getCurrentSession().createSQLQuery(GET_SCHOOLNUM_SQL).getResultList().get(0));
+			playerdtos.add(DBResourceUtil.getPlayerDtos(temPlayer, count, clsnum, marjornum, deptnum, schoolnum));
 		}
+		}
+		System.out.println(playerdtos.size()+";"+playerdtos.toString());
 		return playerdtos;
 	}
 
@@ -72,5 +89,22 @@ public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 	public Integer CountplayerJoinNum(String playerid) {
 		// TODO Auto-generated method stub
 		return (Integer) sessionfactory.getCurrentSession().createQuery(COUNT_PLAYER).setParameter(0, playerid).getSingleResult();
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public List<PlayerDto> findPlayersByItemName(String playertype,String paraName) {
+		// TODO Auto-generated method stub
+		playerdtos.clear();
+		String fIND_ITEM_SQL = "select a.playerName as name,a.sex as sex,b.itemScore as score from player as a,palyerentryform as b where a.playerID = b.playerID and a.player = '"+playertype+"' and b.itemName = '"+paraName+"'"; 
+		playerdtos = sessionfactory.getCurrentSession().createSQLQuery(fIND_ITEM_SQL).setResultTransformer(Transformers.aliasToBean(PlayerDto.class)).getResultList();
+		return playerdtos;
+	}
+
+	@Override
+	public List<PlayerDto> findSchoolPlayers() {
+		// TODO Auto-generated method stub
+		String FIND_PLAYER_SQL = "select depName as name,SUM(score) as score from player GROUP BY depName ORDER BY score DESC";
+		return sessionfactory.getCurrentSession().createSQLQuery(FIND_PLAYER_SQL).setResultTransformer(Transformers.aliasToBean(PlayerDto.class)).getResultList();
 	}
 }

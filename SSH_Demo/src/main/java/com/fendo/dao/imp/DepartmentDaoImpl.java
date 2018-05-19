@@ -18,6 +18,7 @@ import com.fendo.entity.Department;
 import com.fendo.util.PageBean;
 
 @Repository
+@Transactional
 public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements DepartmentDao {
 
 	}

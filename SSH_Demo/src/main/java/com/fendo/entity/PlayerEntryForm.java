@@ -18,7 +18,7 @@ public class PlayerEntryForm implements Serializable{
     private Integer id;
 
     @Column(name="playerID")
-    private Integer playerID;
+    private String playerID;
     @Column(name="depID")
     private String depID;
     @Column(name="itemID")
@@ -47,12 +47,12 @@ public class PlayerEntryForm implements Serializable{
 	}
 
 
-	public Integer getPlayerID() {
+	public String getPlayerID() {
 		return playerID;
 	}
 
 
-	public void setPlayerID(Integer playerID) {
+	public void setPlayerID(String playerID) {
 		this.playerID = playerID;
 	}
 
