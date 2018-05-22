@@ -300,6 +300,9 @@ $(function(){
 		type:"post",
 		url:"../../../playerAction/isRunningAction.json",
 		async:true,
+		data : {
+			playerid : player.playerID
+		},
 		success : function(result){
 			if(result.indexOf('error')!=-1){
 				$('.applybtn').attr('disabled','disabled');
@@ -313,6 +316,7 @@ $(function(){
 });
 
 function showPlayerEntryInfos(){
+	$('.firstTable tbody').empty();
 	$.ajax({
 		type:"post",
 		url:"../../../playerAction/showPlayerInfo.json",
@@ -326,15 +330,40 @@ function showPlayerEntryInfos(){
 			for(var i = 0;i < entryForm.length; i++){
 				$('.firstTable tbody').append("<tr class = 'info'><td>"+i+"</td><td>"+player.sex
 						+"</td><td>"+entryForm[i].itemType+"</td><td>"+entryForm[i].itemName+"</td><td>"
-						+entryForm[i].record+"</td><td>"+entryForm[i].itemno+"</td><td>"+entryForm[i].itemScore+"</td><td><a>撤销报名<a></td></tr>");	
+						+entryForm[i].record+"</td><td>"+entryForm[i].itemno+"</td><td>"+entryForm[i].itemScore+
+						"</td><td><a onclick=\"'repealApply('"+entryForm[i].itemID+"')\" class='"+entryForm[i].itemID+"'>撤销报名</a></td></tr>");	
 			}
-			$('.sumItemScore').val(playerinfos.sumItemScore);
-			$('.deptNum').val(playerinfos.deptNum);
-			$('.schoolNum').val(playerinfos.schoolNum);
+			$('.sumItemScore').text(playerinfos.sumItemScore);
+			$('.deptNum').text(playerinfos.deptNum);
+			$('.schoolNum').text(playerinfos.schoolNum);
 		}
 	}); 
 	
 }
+
+//$('a').click(function(event){
+	//var itemID = event.target.className;
+	function repealApply(itemID){
+	alert(itemID);
+	$.ajax({
+		type:"post",
+		url:"../../../playerAction/repealApply.json",
+		async:true,
+		data:{
+			playerid : player.playerID,
+			depid : player.depID,
+			itemid : itemID
+		},
+		success : function(result){
+			if(result.indexOf("success")!=-1){
+				showPlayerEntryInfos();
+				alert(result);
+			}else{
+				alert("撤销失败")
+			}
+		}
+	}); 
+	}
 
 	//关闭弹窗
 $('.pop-close').click(function() {
@@ -365,8 +394,27 @@ $('.itemtype').change(function(){
 	});
 });
 
+$('.itemname').change(function(){
+	$.ajax({
+		type:"post",
+		url:"../../../playerAction/isRunningAction2.json",
+		async:true,
+		data : {
+			itemid : $('.itemname option:checked').attr('id'),
+			deptid : player.depID
+		},
+		success : function(result){
+			if(result.indexOf('success')!=-1){
+			}else{
+				alert(result);
+			}
+		}
+	});
+});
+
 //点击弹窗的报名按钮，如果成功给运动员信息也添加报名信息
 $('.pop-ok').click(function(){
+	$()
 	var itemname = $('.itemname option:checked').val();
 	var itemtype = $('.itemtype option:checked').val();
 	$.ajax({

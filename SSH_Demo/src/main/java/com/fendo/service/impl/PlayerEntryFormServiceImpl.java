@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.fendo.dao.DepEntryFormDao;
+import com.fendo.dao.ItemDao;
 import com.fendo.dao.PlayerDao;
 import com.fendo.dao.PlayerEntryFormDao;
+import com.fendo.entity.DepEntryForm;
+import com.fendo.entity.Item;
 import com.fendo.entity.PlayerEntryForm;
 import com.fendo.service.PlayerEntryFormService;
 import com.fendo.util.PlayerInfoDto;
@@ -18,6 +22,9 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 	PlayerEntryFormDao playerEntryFromDao;
 	@Autowired
 	PlayerDao playerDao;
+	@Autowired
+	DepEntryFormDao depEntryFormDao;
+	
 	@Override
 	public List<PlayerEntryForm> findAllPlayerEntryForm(String itemid) {
 		// TODO Auto-generated method stub
@@ -37,8 +44,12 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 	}
 
 	@Override
-	public void repealPlayerScore(String itemid, String playerid) {
+	public void repealPlayerScore(String itemid, String depid,String playerid) {
 		// TODO Auto-generated method stub
+		DepEntryForm deptEntryForm = depEntryFormDao.getByDeptIDAndItemID(depid,itemid);
+		int depEntryNum = deptEntryForm.getDepEntryNum();
+		deptEntryForm.setDepEntryNum(depEntryNum--);
+		depEntryFormDao.update(deptEntryForm);
 		playerEntryFromDao.deletePlayerEntryForm(itemid,playerid);
 	}
 
@@ -50,10 +61,22 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 		List<PlayerEntryForm> entyrFormByID = playerEntryFromDao.listAllPlayerEntyrFormByID(playerid);
 		int tem = 0;
 		for(int i = 0;i<entyrFormByID.size();i++){
+			if(entyrFormByID.get(i).getItemScore()!=null){
 			tem += entyrFormByID.get(i).getItemScore();
+			}
 		}
 		PlayerInfoDto playerInfoDto = new PlayerInfoDto(entyrFormByID,String.valueOf(tem),String.valueOf(deptnum),String.valueOf(schoolnum));
 		return playerInfoDto;
+	}
+
+	@Override
+	public void repealPlayerScore(String itemid, String playerid) {
+		// TODO Auto-generated method stub
+		PlayerEntryForm playerEntryForm = playerEntryFromDao.getPlayerEntryForm(itemid, playerid);
+		playerEntryForm.setItemNo(null);
+		playerEntryForm.setRecord("");
+		playerEntryForm.setItemScore(0);
+		playerEntryFromDao.update(playerEntryForm);
 	}
 
 }

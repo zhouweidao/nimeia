@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fendo.dao.AdminDao;
+import com.fendo.dao.DepEntryFormDao;
 import com.fendo.dao.ItemDao;
 import com.fendo.dao.PlayerDao;
+import com.fendo.dao.PlayerEntryFormDao;
 import com.fendo.entity.Admin;
+import com.fendo.entity.DepEntryForm;
 import com.fendo.entity.Item;
 import com.fendo.entity.Player;
+import com.fendo.entity.PlayerEntryForm;
 import com.fendo.service.PlayerService;
 import com.fendo.util.PlayerDto;
 
@@ -23,6 +27,10 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 	private AdminDao adminDao;
 	@Autowired
 	private ItemDao itemDao;
+	@Autowired
+	DepEntryFormDao depEntryFormDao;
+	@Autowired
+	PlayerEntryFormDao playerEntryFormDao;
 
 	@Override
 	public String login(String username, String pswd, String type) {
@@ -116,4 +124,53 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 		playDao.update(player);
 	}
 
+	@Override
+	public boolean ableToApply(String playerid) {
+		// TODO Auto-generated method stub
+		
+		int size = playerEntryFormDao.listAllPlayerEntyrFormByID(playerid).size();
+		if(size < 2){
+			return true;
+		}else{
+		return false;
+		}
+	}
+
+	@Override
+	public boolean ableToApply(String itemID, String depID) {
+		// TODO Auto-generated method stub
+		DepEntryForm byDeptIDAndItemID = depEntryFormDao.getByDeptIDAndItemID(depID, itemID);
+		if(byDeptIDAndItemID.getDepEntryNum() < byDeptIDAndItemID.getItemMax()){
+			return true;
+		}else{
+		return false;
+		}
+	}
+
+	@Override
+	public void playAply(Player player, String itemid, String itemname, String itemtype) {
+		// TODO Auto-generated method stub
+		PlayerEntryForm entryForm = new PlayerEntryForm();
+		//playDao.get(player.getPlayerID(), Player.class);
+		entryForm.setPlayerID(player.getPlayerID());
+		entryForm.setPlayerName(player.getPlayerName());
+		entryForm.setDepID(player.getDepID());
+		entryForm.setItemID(itemid);
+		entryForm.setItemName(itemname);
+		entryForm.setItemNo("");
+		entryForm.setItemType(itemtype);
+		entryForm.setRecord("");
+		playerEntryFormDao.save(entryForm);
+		//System.out.println(player.getPlayerEntryNum());
+		//int tem = player.getPlayerEntryNum();
+		//tem++;
+		//player.setPlayerEntryNum(tem);
+	//	System.out.println(tem+"-"+player.getPlayerEntryNum());
+	//	playDao.update(player);
+		DepEntryForm deptEntryForm = depEntryFormDao.getByDeptIDAndItemID(player.getDepID(),itemid);
+		int depEntryNum = deptEntryForm.getDepEntryNum();
+		depEntryNum++;
+		deptEntryForm.setDepEntryNum(depEntryNum);
+		depEntryFormDao.update(deptEntryForm);
+	}
 }

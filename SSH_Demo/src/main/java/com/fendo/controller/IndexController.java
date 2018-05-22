@@ -1,6 +1,7 @@
 package com.fendo.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,9 +38,10 @@ public class IndexController {
 		return "main";
 	}
 	
-	@RequestMapping(value = "/listTopPlayer.json",produces={"text/html;charset=UTF-8;","application/json;"})
+	@RequestMapping(value = "/listTopPlayer.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
-	public String listTopPlayerAction(String type,String context,String searchCon,String typeName,String contextName){
+	public String listTopPlayerAction(String type,String context,String searchCon,String typeName,String contextName,HttpServletResponse response){
+		//response.setHeader("Content-Type", "application/json;charset=UTF-8");
 		String jsonString = JSON.toJSONString(playerservice.findAllTopPlayer(type,context,searchCon,typeName,contextName));
 		System.out.println(jsonString);
 		return jsonString;

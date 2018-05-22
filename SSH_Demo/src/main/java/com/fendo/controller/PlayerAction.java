@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.fendo.entity.DepEntryForm;
 import com.fendo.entity.Player;
 import com.fendo.entity.PlayerEntryForm;
 import com.fendo.entity.SystemController;
@@ -37,13 +38,13 @@ public class PlayerAction {
 		return "";
 	}
 	//加载项目下拉框
-	@RequestMapping("/showItemInfo.json")
+	@RequestMapping(value = "/showItemInfo.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String showItemInfoAction(String sex){
 		return JSON.toJSONString(playerservice.findAllItemName(sex));
 	}
 	//修改个人信息
-	@RequestMapping(value="/editPlayerInfoAction.json")
+	@RequestMapping(value="/editPlayerInfoAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String editPlayerInfoAction(String playerid,String username,String sex,String dept,String cls,
 			String phonenum,String usertype,String proprity){
@@ -52,42 +53,45 @@ public class PlayerAction {
 		
 	}
 	//显示报名信息
-	@RequestMapping("/showPlayerInfo.json")
+	@RequestMapping(value = "/showPlayerInfo.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String showPlayerInfoAction(String playerid,String deptName){
 		PlayerInfoDto playerInfoDto = entryFormService.findAllPlayerEntryFormByPlayerID(playerid,deptName);
 		return JSON.toJSONString(playerInfoDto);
 	}
 	//报名功能
-	@RequestMapping("/playApply.json")
+	@RequestMapping(value = "/playApply.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String playApplyAction(String playerEntry,String itemid,String itemname,String itemtype){
 		Player player = JSON.parseObject(playerEntry, Player.class);
-		PlayerEntryForm entryForm = new PlayerEntryForm();
-		entryForm.setPlayerID(player.getPlayerID());
-		entryForm.setPlayerName(player.getPlayerName());
-		entryForm.setDepID(player.getDepID());
-		entryForm.setItemID(itemid);
-		entryForm.setItemName(itemname);
-		entryForm.setItemNo("");
-		entryForm.setItemType(itemtype);
-		entryForm.setRecord("");
-		entryFormService.save(entryForm);
-		int tem = player.getPlayerEntryNum();
-		player.setPlayerEntryNum(tem++);
-		playerservice.update(player);
+		playerservice.playAply(player,itemid,itemname,itemtype);
 		return JsonUtil.ToJson("success");
 	}
-	//判断是否可以报名
-	@RequestMapping("/isRunningAction.json")
+	
+	@RequestMapping(value = "/isRunningAction2.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	/**
 	 * String deptid,String itemid
 	 * @return
 	 */
-	public String isRunningAction(){
+	public String isRunning2Action(String itemid,String deptid){
+		if(playerservice.ableToApply(itemid,deptid)){
+			return JSON.toJSONString("success");
+		}else{
+		return JSON.toJSONString("当前项目名额已满");
+	   }
+	}
+	
+	//判断是否可以报名/是否是报名时间或者已报项目是否大于2
+	@RequestMapping(value = "/isRunningAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
+	@ResponseBody
+	/**
+	 * String deptid,String itemid
+	 * @return
+	 */
+	public String isRunningAction(String playerid){
 		SystemController systemController = systemService.get(1);
-		if(systemController.getIsrunning() == true){
+		if(systemController.getIsrunning() == true && playerservice.ableToApply(playerid)){
 			return JSON.toJSONString("success");
 		}else{
 		return JSON.toJSONString("error");
@@ -95,10 +99,10 @@ public class PlayerAction {
 	}
 	
 	//撤销报名
-	@RequestMapping("/repealApply.json")
+	@RequestMapping(value = "/repealApply.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
-	public String repealApplyAction(String playerid,String itemid){
-		entryFormService.repealPlayerScore(itemid, playerid);
+	public String repealApplyAction(String playerid,String depid,String itemid){
+		entryFormService.repealPlayerScore(itemid, depid,playerid);
 		return JsonUtil.ToJson("success");
 	}
 }

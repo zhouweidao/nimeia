@@ -30,7 +30,7 @@ public class PlayerEntryFormDaoImpl extends BaseDaoImpl<PlayerEntryForm> impleme
 	@Override
 	public Integer getPlayerScore(String itemid, String itemname, String itemtype, String paiming) {
 		// TODO Auto-generated method stub
-		String GET_SCORE = "SELECT ITEMSCORE FROM ITEMSCORE WHERE ITEMID = '"+itemname+"' AND ITEMNAME = '"+itemname+"' AND ITEMTYPE = '"+itemtype+"' AND ITEMNO = '"+paiming+"'";
+		String GET_SCORE = "SELECT ITEMSCORE FROM ITEMSCORE WHERE ITEMID = '"+itemid+"' AND ITEMNAME = '"+itemname+"' AND ITEMTYPE = '"+itemtype+"' AND ITEMNO = '"+paiming+"'";
 		return (Integer) sessionFactory.getCurrentSession().createSQLQuery(GET_SCORE).getResultList().get(0);
 	}
 
@@ -44,7 +44,6 @@ public class PlayerEntryFormDaoImpl extends BaseDaoImpl<PlayerEntryForm> impleme
 	public void deletePlayerEntryForm(String itemid, String playerid) {
 		// TODO Auto-generated method stub
 		String DEL_PLAYERENTRYFORM = "DELETE FROM PALYERENTRYFORM WHERE ITEMID = '"+itemid+"' AND PLAYERID = '"+playerid+"'";
-		System.out.println("老子也进来了"+itemid+playerid);
 		sessionFactory.getCurrentSession().createSQLQuery(DEL_PLAYERENTRYFORM).executeUpdate();
 	}
 
@@ -73,6 +72,6 @@ public class PlayerEntryFormDaoImpl extends BaseDaoImpl<PlayerEntryForm> impleme
 	@Override
 	public List<PlayerEntryForm> listAllPlayerEntyrFormByID(String playerid) {
 		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery(GET_ALLPALYERENTRYFORM).setParameter(0, playerid).getResultList();	}
+		return sessionFactory.getCurrentSession().createQuery(GET_ALLPALYERENTRYFORMBYPLAYERID).setParameter(0, playerid).getResultList();	}
 
 	}

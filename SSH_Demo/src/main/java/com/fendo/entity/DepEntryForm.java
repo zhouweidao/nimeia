@@ -19,7 +19,7 @@ public class DepEntryForm implements Serializable{
 	    private Integer id;
 
 	    @Column(name="depID")
-	    private Integer depID;
+	    private String depID;
 	    @Column(name="itemID")
 	    private String itemID;
 	    @Column(name="itemMax")
@@ -38,12 +38,12 @@ public class DepEntryForm implements Serializable{
 		}
 
 
-		public Integer getDepID() {
+		public String getDepID() {
 			return depID;
 		}
 
 
-		public void setDepID(Integer depID) {
+		public void setDepID(String depID) {
 			this.depID = depID;
 		}
 

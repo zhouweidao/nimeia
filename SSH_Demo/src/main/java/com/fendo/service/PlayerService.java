@@ -16,5 +16,10 @@ public interface PlayerService extends BaseService<Player>{
 
 	void editPlayerInfo(String playerid, String uaername, String sex, String dept, String cls, String phonenum,
 			String usertype);
+
+	boolean ableToApply(String playerid);
+	boolean ableToApply(String itemID,String depID);
+
+	void playAply(Player player, String itemid, String itemname, String itemtype);
 	
 }

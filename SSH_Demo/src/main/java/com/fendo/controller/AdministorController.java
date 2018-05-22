@@ -25,18 +25,18 @@ public class AdministorController {
 	@Autowired
 	AdminService adminService;
 	
-	@RequestMapping("/editPripority.json")
+	@RequestMapping(value = "/editPripority.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	public void mergePermissionAction(String adminid,String usertype,String pripority) {
 		
 		 adminService.setPripority(adminid,usertype,pripority);
 	}
 	
-	@RequestMapping("/editPasswordAction.json")
+	@RequestMapping(value = "/editPasswordAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	public void editPasswordAction(String adminID,String paswd){
 		adminService.updatePassword(adminID,paswd);
 	}
 
-	@RequestMapping("/startOrCloseApplyAction.json")
+	@RequestMapping(value = "/startOrCloseApplyAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	public void startOrCloseApplyAction(String role) {
 		Boolean temp = false;
 		int tempnum = 0;
@@ -55,31 +55,31 @@ public class AdministorController {
 
 	}
 
-	@RequestMapping("/listAllItemName.json")
+	@RequestMapping(value = "/listAllItemName.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String listAllItemNameAction(String itemType, String itemsex) {
 		return JSON.toJSONString(itemService.findAllItemName(itemsex, itemType));
 	}
 
-	@RequestMapping("/listAllPlayerName.json")
+	@RequestMapping(value = "/listAllPlayerName.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String listAllPlayerEntryFormNameAction(String itemid) {
 		return JSON.toJSONString(playerEntryFormService.findAllPlayerEntryForm(itemid));
 	}
 	
-	@RequestMapping("/repealSavePlayerScore.json")
+	@RequestMapping(value = "/repealSavePlayerScore.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public void repealSavePlayerScoreAction(String itemid,String playerid){
 		playerEntryFormService.repealPlayerScore(itemid,playerid);
 	}
 	
-	@RequestMapping("/savePlayerScore.json")
+	@RequestMapping(value = "/savePlayerScore.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public void SavePlayerScoreAction(String itemid,String playerid,String paiming,String score,String itemname,String itemtype){
 		playerEntryFormService.saveScore(itemid,playerid,paiming,score,itemname,itemtype);
 	}
 	
-	@RequestMapping("/isRunningAction.json")
+	@RequestMapping(value = "/isRunningAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String isRunningAction() {
 		SystemController systemController = systemControllerService.get(2);

@@ -13,8 +13,10 @@ public interface PlayerEntryFormService extends BaseService<PlayerEntryForm>{
 
 	void saveScore(String itemid, String playerid, String paiming, String score, String itemname, String itemtype);
 
-	void repealPlayerScore(String itemid, String playerid);
+	void repealPlayerScore(String itemid,String depid, String playerid);
 
 	PlayerInfoDto findAllPlayerEntryFormByPlayerID(String playerid,String deptName);
+
+	void repealPlayerScore(String itemid, String playerid);
 
 }
