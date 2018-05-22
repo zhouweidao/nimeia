@@ -136,6 +136,13 @@
 				async: true,
 				data: {
 					role: JSON.toLocaleString("admin")
+				},
+				success : function(result){
+					if(result.indexOf("success")!=-1){
+						alert("校运会状态开启！");
+					}else{
+						alert("校运会已成功办结！");
+					}
 				}
 			});
 		});

@@ -37,22 +37,27 @@ public class AdministorController {
 	}
 
 	@RequestMapping(value = "/startOrCloseApplyAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
-	public void startOrCloseApplyAction(String role) {
+	@ResponseBody
+	public String startOrCloseApplyAction(String role) {
 		Boolean temp = false;
+		String result = "";
 		int tempnum = 0;
 		if (role.equals("manager")) {
 			tempnum = 1;
+			
 		} else {
 			tempnum = 2;
 		}
 		SystemController systemController = systemControllerService.get(tempnum);
 		if (systemController.getIsrunning()) {
+			result= "error";
 		} else {
+			result = "success";
 			temp = true;
 		}
 		systemController.setIsrunning(temp);
 		systemControllerService.update(systemController);
-
+		return JSON.toJSONString(result);
 	}
 
 	@RequestMapping(value = "/listAllItemName.json",produces={"application/json;charset=UTF-8;","application/json;"})

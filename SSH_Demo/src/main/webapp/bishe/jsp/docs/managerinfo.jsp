@@ -249,6 +249,13 @@
 				async:true,
 				data : {
 					role : JSON.toLocaleString("manager")
+				},
+				success : function(result){
+					if(result.indexOf("success")!=-1){
+						alert("报名成功开启！");
+					}else{
+						alert("报名成功关闭！");
+					}
 				}
 			});
 		});
