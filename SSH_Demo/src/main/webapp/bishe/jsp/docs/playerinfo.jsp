@@ -331,7 +331,7 @@ function showPlayerEntryInfos(){
 				$('.firstTable tbody').append("<tr class = 'info'><td>"+i+"</td><td>"+player.sex
 						+"</td><td>"+entryForm[i].itemType+"</td><td>"+entryForm[i].itemName+"</td><td>"
 						+entryForm[i].record+"</td><td>"+entryForm[i].itemno+"</td><td>"+entryForm[i].itemScore+
-						"</td><td><a onclick=\"'repealApply('"+entryForm[i].itemID+"')\" class='"+entryForm[i].itemID+"'>撤销报名</a></td></tr>");	
+						"</td><td><a onclick=\"repealApply('"+entryForm[i].itemID+"')\" class='"+entryForm[i].itemID+"'>撤销报名</a></td></tr>");	
 			}
 			$('.sumItemScore').text(playerinfos.sumItemScore);
 			$('.deptNum').text(playerinfos.deptNum);
