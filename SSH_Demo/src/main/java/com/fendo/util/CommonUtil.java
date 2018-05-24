@@ -101,7 +101,8 @@ public final class CommonUtil {
 	
 	public static Integer doubleToInteger(Double doublenum){
 		 String s1 = String.valueOf(doublenum);
-		 String s2 = s1.substring(0, s1.indexOf(".")) + s1.substring(s1.indexOf(".")+1);
+		 String s2 = s1.split("[.]")[0];
 		 return Integer.parseInt(s2); 
 	}
+
 }

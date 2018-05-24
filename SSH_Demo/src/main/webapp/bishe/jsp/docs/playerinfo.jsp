@@ -174,7 +174,7 @@ td {
 								</div>
 								<div style="float: left;">
 								<label>专业</label> 
-								<input type="text" class="dept" disabled="false" value="应用化学"/><span class="help-block"></span>
+								<input type="text" class="major" disabled="false" value="应用化学"/><span class="help-block"></span>
 								</div>
 								</div>
 								<div class="span8">
@@ -286,9 +286,9 @@ td {
 $(function(){
 	var playerstr = '<%=session.getAttribute("player")%>';
 	player = JSON.parse(playerstr);
-	alert(player);
 	$('.playerid').val(player.playerID);
 	$('.username').val(player.playerName);
+	$('.major').val(player.major);
 	$('.sex').val(player.sex);
 	$('.dept').val(player.depName);
 	$('.cls').val(player.classes);
@@ -330,7 +330,7 @@ function showPlayerEntryInfos(){
 			for(var i = 0;i < entryForm.length; i++){
 				$('.firstTable tbody').append("<tr class = 'info'><td>"+i+"</td><td>"+player.sex
 						+"</td><td>"+entryForm[i].itemType+"</td><td>"+entryForm[i].itemName+"</td><td>"
-						+entryForm[i].record+"</td><td>"+entryForm[i].itemno+"</td><td>"+entryForm[i].itemScore+
+						+entryForm[i].record+"</td><td>"+entryForm[i].itemNo+"</td><td>"+entryForm[i].itemScore+
 						"</td><td><a onclick=\"repealApply('"+entryForm[i].itemID+"')\" class='"+entryForm[i].itemID+"'>撤销报名</a></td></tr>");	
 			}
 			$('.sumItemScore').text(playerinfos.sumItemScore);
@@ -344,7 +344,6 @@ function showPlayerEntryInfos(){
 //$('a').click(function(event){
 	//var itemID = event.target.className;
 	function repealApply(itemID){
-	alert(itemID);
 	$.ajax({
 		type:"post",
 		url:"../../../playerAction/repealApply.json",

@@ -32,8 +32,9 @@ public class AdministorController {
 	}
 	
 	@RequestMapping(value = "/editPasswordAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
-	public void editPasswordAction(String adminID,String paswd){
+	public String editPasswordAction(String adminID,String paswd){
 		adminService.updatePassword(adminID,paswd);
+		return JSON.toJSONString("success");
 	}
 
 	@RequestMapping(value = "/startOrCloseApplyAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
@@ -42,9 +43,8 @@ public class AdministorController {
 		Boolean temp = false;
 		String result = "";
 		int tempnum = 0;
-		if (role.equals("manager")) {
+		if (role.equals("\"manager\"")) {
 			tempnum = 1;
-			
 		} else {
 			tempnum = 2;
 		}
@@ -74,14 +74,16 @@ public class AdministorController {
 	
 	@RequestMapping(value = "/repealSavePlayerScore.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
-	public void repealSavePlayerScoreAction(String itemid,String playerid){
+	public String repealSavePlayerScoreAction(String itemid,String playerid){
 		playerEntryFormService.repealPlayerScore(itemid,playerid);
+		return JSON.toJSONString("success");
 	}
 	
 	@RequestMapping(value = "/savePlayerScore.json",produces={"application/json;charset=UTF-8;","application/json;"})
 	@ResponseBody
-	public void SavePlayerScoreAction(String itemid,String playerid,String paiming,String score,String itemname,String itemtype){
+	public String SavePlayerScoreAction(String itemid,String playerid,String paiming,String score,String itemname,String itemtype){
 		playerEntryFormService.saveScore(itemid,playerid,paiming,score,itemname,itemtype);
+		return JSON.toJSONString("success");
 	}
 	
 	@RequestMapping(value = "/isRunningAction.json",produces={"application/json;charset=UTF-8;","application/json;"})

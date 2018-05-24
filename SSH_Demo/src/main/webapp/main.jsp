@@ -63,13 +63,11 @@
 		<!--<div id="rel_header"></div>-->
 		<div class="col-sm-12 title">
 			<div id="header">
-				<img style="margin-left: 23%;" src="bishe/base/img/XKDsport-sys.png"/>
+				<img style="margin-left: 15%;width:70%;" src="bishe/base/img/XKDsport-sys.png"/>
 			</div>
 			<!--<div class="header"><img src="base/img/XKDsport-sys.png"/></div>-->
 			<div class="tools" style="    position: absolute;right: 475px;top: 25px;">
-				<!-- <a id="Login_start_" style="float: right;margin: 80px 150px 5px; font-size: 16px;" data-toggle="modal" data-target="#loginModal" data-whatever="@mdo">登录/注册</a>
-				<a id="Login_start_" style="float: right;margin: 80px 150px 5px; font-size: 16px;" data-toggle="modal" data-target="#loginModal" data-whatever="@mdo">登录/注册</a>
-				<a id="Login_start_" style="float: right;margin: 80px 150px 5px; font-size: 16px;" data-toggle="modal" data-target="#loginModal" data-whatever="@mdo">登录/注册</a> -->
+				
 				<ul>
 					<li>
 						<a id="Login_start_" data-toggle="modal" data-target="#loginModalA" data-whatever="@mdo">运动员登录</a>
@@ -85,7 +83,7 @@
 			</div>
 			
 			
-				<iframe style="margin-left: 23%;" class="J_iframe" name="iframe0" width="70%" height="50%" src="bishe/jsp/docs/index.jsp" frameborder="0" data-id="index_v1.html" seamless></iframe>
+				<iframe style="margin-left: 15%;" class="J_iframe" name="iframe0" width="70%" height="50%" src="bishe/jsp/docs/index.jsp" frameborder="0" data-id="index_v1.html" seamless></iframe>
 			
 			<!--<div id="footer">
 
@@ -102,7 +100,6 @@
 							<h4 class="modal-title" id="loginModalLabel" style="text-align: center;">运动员登录</h4>
 						</div>
 						<div class="modal-body" >
-							<form id="login-forma">
 								<div class="form-group" style="position:relative;">
 									<input type="text" class="form-control usernameA" name="uname" placeholder="请输入用户名" >
 									<i class="fa fa-user-o fa-lg" style="position: absolute;top:10px;right: 10px;"></i>
@@ -113,7 +110,6 @@
 								</div>
 								<div>
 								</div>
-							</form>
 							<span class="showWorry">
 							</span>
 						</div>
@@ -214,7 +210,6 @@
 				 pasw = $('.passwordC').val();
 				type = 3;
 			}
-			alert("type:"+type);
 			$.ajax({
 				type:"post",
 				url:"indexAction/login.html",

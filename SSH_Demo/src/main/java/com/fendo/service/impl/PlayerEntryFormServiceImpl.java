@@ -12,6 +12,7 @@ import com.fendo.dao.PlayerDao;
 import com.fendo.dao.PlayerEntryFormDao;
 import com.fendo.entity.DepEntryForm;
 import com.fendo.entity.Item;
+import com.fendo.entity.Player;
 import com.fendo.entity.PlayerEntryForm;
 import com.fendo.service.PlayerEntryFormService;
 import com.fendo.util.PlayerInfoDto;
@@ -37,6 +38,10 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 		// TODO Auto-generated method stub
 		Integer socre = playerEntryFromDao.getPlayerScore(itemid,itemname,itemtype,paiming);
 		PlayerEntryForm tempplayerEntryForm = playerEntryFromDao.getPlayerEntryForm(itemid, playerid);
+		Player player = playerDao.get(playerid, Player.class);
+		int num = player.getScore();
+		player.setScore(num + socre);
+		playerDao.update(player);
 		tempplayerEntryForm.setItemNo(paiming);
 		tempplayerEntryForm.setRecord(report);
 		tempplayerEntryForm.setItemScore(socre);
@@ -47,8 +52,14 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 	public void repealPlayerScore(String itemid, String depid,String playerid) {
 		// TODO Auto-generated method stub
 		DepEntryForm deptEntryForm = depEntryFormDao.getByDeptIDAndItemID(depid,itemid);
+		PlayerEntryForm tempplayerEntryForm = playerEntryFromDao.getPlayerEntryForm(itemid, playerid);
 		int depEntryNum = deptEntryForm.getDepEntryNum();
 		deptEntryForm.setDepEntryNum(depEntryNum--);
+		Player player = playerDao.get(playerid, Player.class);
+		int num = player.getScore();
+		int entryformScore  = tempplayerEntryForm.getItemScore();
+		player.setScore(num - entryformScore);
+		playerDao.update(player);
 		depEntryFormDao.update(deptEntryForm);
 		playerEntryFromDao.deletePlayerEntryForm(itemid,playerid);
 	}
@@ -73,10 +84,14 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 	public void repealPlayerScore(String itemid, String playerid) {
 		// TODO Auto-generated method stub
 		PlayerEntryForm playerEntryForm = playerEntryFromDao.getPlayerEntryForm(itemid, playerid);
+		Player player = playerDao.get(playerid, Player.class);
+		int num = player.getScore();
+		int entryformScore  = playerEntryForm.getItemScore();
+		player.setScore(num - entryformScore);
+		playerDao.update(player);
 		playerEntryForm.setItemNo(null);
 		playerEntryForm.setRecord("");
 		playerEntryForm.setItemScore(0);
 		playerEntryFromDao.update(playerEntryForm);
 	}
-
 }

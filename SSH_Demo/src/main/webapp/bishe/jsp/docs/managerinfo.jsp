@@ -146,7 +146,10 @@
 				data:{
 					adminID : adminid,
 					paswd : paswd
-				}
+				},
+			success : function(result){
+				alert(result);
+		}
 			});
 		});
 	
@@ -221,8 +224,8 @@
 					itemname :itemname,
 					itemtype : itemtype
 				},
-				success : function(){
-					
+				success : function(result){
+					alert(result);
 				}
 			});
 		
@@ -239,7 +242,9 @@
 					playerid : playerid,
 					itemid : itemid
 				},
-			});
+				success : function(result){
+					alert(result);
+			}
 		});
 		
 		$('.startApplybtn').click(function(){
@@ -248,7 +253,7 @@
 				url:"../../../aminisotrAction/startOrCloseApplyAction.json",
 				async:true,
 				data : {
-					role : JSON.toLocaleString("manager")
+					role : JSON.stringify("manager")
 				},
 				success : function(result){
 					if(result.indexOf("success")!=-1){
@@ -259,7 +264,7 @@
 				}
 			});
 		});
-		
+		});
 	</script>
 
 </html>

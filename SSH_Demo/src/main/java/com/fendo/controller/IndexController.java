@@ -5,21 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.support.spring.FastJsonJsonView;
-import com.fendo.dao.PlayerDao;
-import com.fendo.entity.Admin;
-import com.fendo.entity.Player;
 import com.fendo.service.AdminService;
 import com.fendo.service.PlayerService;
-import com.fendo.util.JsonUtil;
-import com.fendo.util.PlayerDto;
 
 @Controller
 @RequestMapping(value = "/indexAction")

@@ -125,7 +125,10 @@
 				data: {
 					adminID: adminid,
 					paswd: paswd
-				}
+				},
+			success : function(result){
+				alert(result);
+		}
 			});
 		});
 
@@ -135,7 +138,7 @@
 				url: "../../../aminisotrAction/startOrCloseApplyAction.json",
 				async: true,
 				data: {
-					role: JSON.toLocaleString("admin")
+					role: JSON.stringify("admin")
 				},
 				success : function(result){
 					if(result.indexOf("success")!=-1){

@@ -40,6 +40,7 @@ public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<PlayerDto> findPlayers(String playertype,String temp ,String paraName) {
 		// TODO Auto-generated method stub
@@ -67,9 +68,11 @@ public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 			String GET_SCHOOLNUM_SQL = "SELECT rowno FROM (SELECT a.playerID,a.playerName,a.Score,a.Class,a.major, (@rowno\\:=@rowno+1) as rowno FROM player a,(select (@rowno\\:=0)) b ORDER BY Score DESC) c WHERE c.playerID='"+temPlayer.getPlayerID()+"'";
 			System.out.println(temPlayer.getClasses()+temPlayer.getMajor()+temPlayer.getDepName()+temPlayer.getPlayerID());
 			clsnum = CommonUtil.doubleToInteger((Double) sessionfactory.getCurrentSession().createSQLQuery(GET_CLSNUM_SQL).getResultList().get(0));
-			marjornum = CommonUtil.doubleToInteger((Double)sessionfactory.getCurrentSession().createSQLQuery(GET_MARJORNUM_SQL).getResultList().get(0));
+			Double num = (Double)sessionfactory.getCurrentSession().createSQLQuery(GET_MARJORNUM_SQL).getResultList().get(0);
+			marjornum = CommonUtil.doubleToInteger(num);
 			deptnum = CommonUtil.doubleToInteger((Double)sessionfactory.getCurrentSession().createSQLQuery(GET_DEPTNUM_SQL).getResultList().get(0));
 			schoolnum = CommonUtil.doubleToInteger((Double)sessionfactory.getCurrentSession().createSQLQuery(GET_SCHOOLNUM_SQL).getResultList().get(0));
+			System.out.println("clsnum:"+clsnum+"marjornum:"+marjornum+"depnum:"+deptnum+"schoolnum:"+schoolnum);
 			playerdtos.add(DBResourceUtil.getPlayerDtos(temPlayer, count, clsnum, marjornum, deptnum, schoolnum));
 		}
 		}

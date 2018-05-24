@@ -82,7 +82,7 @@ dl {
   text-shadow: none; }
 
 ::-webkit-scrollbar {
-  width: 8px; }
+  width: 16px; }
 
 ::-webkit-scrollbar-thumb {
   background: #bbbbbb;
@@ -482,7 +482,7 @@ body.login2 {
 /*----------------------------------------------------------------------------------- */
 .btn {
   font-weight: 300;
-  margin: 0 10px 10px 0;
+  margin: 0 10px 10px 25px;
   -webkit-transition: all 0.15s;
   -moz-transition: all 0.15s;
   transition: all 0.15s; }
