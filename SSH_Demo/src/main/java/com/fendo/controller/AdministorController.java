@@ -32,12 +32,13 @@ public class AdministorController {
 	}
 	
 	@RequestMapping(value = "/editPasswordAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
+	@ResponseBody
 	public String editPasswordAction(String adminID,String paswd){
 		adminService.updatePassword(adminID,paswd);
 		return JSON.toJSONString("success");
 	}
 
-	@RequestMapping(value = "/startOrCloseApplyAction.json",produces={"application/json;charset=UTF-8;","application/json;"})
+	@RequestMapping(value = "/startOrCloseApplyAction.json")
 	@ResponseBody
 	public String startOrCloseApplyAction(String role) {
 		Boolean temp = false;
@@ -54,6 +55,13 @@ public class AdministorController {
 		} else {
 			result = "success";
 			temp = true;
+		}
+		if(tempnum == 2){
+			SystemController systemControllerM = systemControllerService.get(1);
+			if(systemControllerM.getIsrunning()&&systemController.getIsrunning()){
+				systemControllerM.setIsrunning(false);
+				systemControllerService.update(systemControllerM);
+			}
 		}
 		systemController.setIsrunning(temp);
 		systemControllerService.update(systemController);

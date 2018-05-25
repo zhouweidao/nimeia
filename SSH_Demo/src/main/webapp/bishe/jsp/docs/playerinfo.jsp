@@ -328,7 +328,7 @@ function showPlayerEntryInfos(){
 		success : function(playerinfos){
 			var entryForm = playerinfos.entryForm;
 			for(var i = 0;i < entryForm.length; i++){
-				$('.firstTable tbody').append("<tr class = 'info'><td>"+i+"</td><td>"+player.sex
+				$('.firstTable tbody').append("<tr class = 'info'><td>"+(i+1)+"</td><td>"+player.sex
 						+"</td><td>"+entryForm[i].itemType+"</td><td>"+entryForm[i].itemName+"</td><td>"
 						+entryForm[i].record+"</td><td>"+entryForm[i].itemNo+"</td><td>"+entryForm[i].itemScore+
 						"</td><td><a onclick=\"repealApply('"+entryForm[i].itemID+"')\" class='"+entryForm[i].itemID+"'>撤销报名</a></td></tr>");	
@@ -387,7 +387,7 @@ $('.itemtype').change(function(){
 		},
 		success : function(items){
 			for(var i = 0;i <items.length; i++){
-				$('.itemname').append("<option id='"+items[i][0]+"'>"+items[i][1]+"</option>")
+				$('.itemname').append("<option id='"+items[i][0]+"'>"+items[i][1]+"</option>");
 			}
 		}
 	});

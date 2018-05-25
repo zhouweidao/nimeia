@@ -15,7 +15,6 @@ import com.fendo.util.CommonUtil;
 @Transactional
 public class PlayerEntryFormDaoImpl extends BaseDaoImpl<PlayerEntryForm> implements PlayerEntryFormDao {
 
-	private static final String GET_ALLPALYERENTRYFORM = "FROM PlayerEntryForm WHERE itemID = ?";
 	private static final String GET_ALLPALYERENTRYFORMBYPLAYERID = "FROM PlayerEntryForm WHERE playerID = ?";
 	private static final String GET_PLAYERENTRYFORM = "FROM PlayerEntryForm WHERE itemID = ? AND playerID = ?";
 	@Autowired
@@ -24,7 +23,8 @@ public class PlayerEntryFormDaoImpl extends BaseDaoImpl<PlayerEntryForm> impleme
 	@Override
 	public List<PlayerEntryForm> getAllPlayerEntryFromByItemID(String itemid) {
 		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery(GET_ALLPALYERENTRYFORM).setParameter(0, itemid).getResultList();
+		String GET_ALLPALYERENTRYFORM = " FROM PlayerEntryForm WHERE itemID = '"+itemid+"'";
+		return sessionFactory.getCurrentSession().createQuery(GET_ALLPALYERENTRYFORM).getResultList();
 	}
 
 	@Override

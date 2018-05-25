@@ -34,7 +34,6 @@
 							<img alt="140x140" src="../../base/img/68ad566d7c8f72d258e173d0299cba71.jpg" />
 						</div>
 						<div class="span6">
-							<form>
 								<fieldset>
 									<legend>系统管理员——个人信息</legend>
 									<label>ID</label>
@@ -47,13 +46,11 @@
 									<input type="text" disabled="false" class="priority" value="3" />
 									<span class="help-block"></span>
 								</fieldset>
-							</form>
 
 						</div>
 						<div class="container-fluid">
 							<div class="row-fluid">
 								<div class="span12">
-									<form style="width: 100%;height: 40px;">
 										<dl style="float: left;">
 											<dt style="line-height: 32px;">
 						修改权限操作：
@@ -78,27 +75,26 @@
 												
 											</div> <button class="btn btn-danger sureEdit" type="submit">确认修改</button>
 										</fieldset>
-									</form>
-									<form style="width: 100%;height: 40px;">
+										<br>
+										<div>
 										<dl style="float: left;">
-											<dt style="line-height: 32px;">
+											<dt style="line-height: 42px;">
 						修改密码操作：
 					</dt>
 										</dl>
 										<fieldset style="float: left;">
 											<input style="margin: 0;height: 30px;" class="inputpassword" type="text" /> <button class="btn btn-danger editPasswordBtn" type="submit">确认修改</button>
 										</fieldset>
-									</form>
-									<form style="width: 100%;height: 40px;">
+										</div>
+										<br>
 										<dl style="float: left;">
-											<dt style="line-height: 32px;">
+											<dt style="line-height: 30px;">
 						校运会状态控制：
 					</dt>
 										</dl>
 										<fieldset style="float: left;">
-											<button class="btn btn-primary startApplybtn" type="submit">校运会开始/办结</button>
+											<button class="btn btn-primary startApplybtn">校运会开始/办结</button>
 										</fieldset>
-									</form>
 								</div>
 							</div>
 						</div>

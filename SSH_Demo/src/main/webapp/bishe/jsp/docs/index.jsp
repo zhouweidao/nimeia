@@ -77,8 +77,8 @@
 												<select style="float: left;margin-top: 15px; margin-left: 20px;">
 													<option>运动员类型</option>
 												</select>-->
-												<div style="position: absolute;left: 738px;top: 16px;">
-													<input placeholder="输入具体检索内容" class="input-medium search-query" type="text" /> <button class="submitbtn btn-warning btn dropdwon-toggle">查找</button>
+												<div style="position: absolute;left: 738px;top: 11px;">
+													<input placeholder="请输入具体的检索内容" class="input-medium search-query" type="text" /> <button class="submitbtn btn-warning btn dropdwon-toggle">查找</button>
 												</div>
 										</div>
 
@@ -372,14 +372,14 @@
 								}
 							}//下拉框选了'学生'+'项目名'.>>>积分排行榜-1.4-《学生-各项目的最高纪录榜》- 
 							if(playercontext == "4") {//下拉框选了4=='项目名'//
-								addCells(cells, '排名', '运动员姓名', '性别', '项目成绩');
+								addCells(cells, '排名', '运动员姓名', '运动员编号', '项目成绩');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
 								}
 								for(var i = 0; i < players.length; i++) {
 									str += "<tr class='info'>"
-									str += createtable(i+1, players[i].name, players[i].sex, players[i].score);
+									str += createtable(i+1, players[i].name, players[i].id, players[i].score);
 									str += "</tr>";
 								}
 								addReaport(searchcontext);//单独显示：【 项目记录，纪录保持者】
@@ -437,14 +437,14 @@
 								}
 							}//下拉框选了'教师'+'院校'>>>积分排行榜-2.3-《教师-各项目的最高纪录榜》-
 							if(playercontext == "4") {//下拉框选了4=='项目名'//
-								addCells(cells, '排名', '运动员姓名', '性别', '项目成绩');
+								addCells(cells, '排名', '运动员姓名', '运动员编号', '项目成绩');
 								var str = "";
 								for(var i = 0; i < cells.length; i++) {
 									$('.playertable thead tr').append("<th>" + cells[i] + "</th>");
 								}
 								for(var i = 0; i < players.length; i++) {
 									str += "<tr class='info'>"
-									str += createtable(i+1, players[i].name, players[i].sex, players[i].record);
+									str += createtable(i+1, players[i].name, players[i].id, players[i].record);
 									str += "</tr>";
 								}
 								addReaport(searchcontext);//单独显示：【 项目记录，纪录保持者】

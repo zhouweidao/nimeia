@@ -5,13 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.fendo.dao.DepEntryFormDao;
-import com.fendo.dao.ItemDao;
 import com.fendo.dao.PlayerDao;
 import com.fendo.dao.PlayerEntryFormDao;
 import com.fendo.entity.DepEntryForm;
-import com.fendo.entity.Item;
 import com.fendo.entity.Player;
 import com.fendo.entity.PlayerEntryForm;
 import com.fendo.service.PlayerEntryFormService;
@@ -53,8 +50,10 @@ public class PlayerEntryFormServiceImpl extends BaseServiceImpl<PlayerEntryForm>
 		// TODO Auto-generated method stub
 		DepEntryForm deptEntryForm = depEntryFormDao.getByDeptIDAndItemID(depid,itemid);
 		PlayerEntryForm tempplayerEntryForm = playerEntryFromDao.getPlayerEntryForm(itemid, playerid);
+		System.out.println("chexiaobaoming:"+tempplayerEntryForm);
 		int depEntryNum = deptEntryForm.getDepEntryNum();
-		deptEntryForm.setDepEntryNum(depEntryNum--);
+		depEntryNum--;
+		deptEntryForm.setDepEntryNum(depEntryNum);
 		Player player = playerDao.get(playerid, Player.class);
 		int num = player.getScore();
 		int entryformScore  = tempplayerEntryForm.getItemScore();

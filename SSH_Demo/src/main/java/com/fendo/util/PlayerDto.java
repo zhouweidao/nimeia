@@ -19,6 +19,11 @@ public class PlayerDto {
 	public PlayerDto() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public PlayerDto(String name,Integer score){
+		this.name = name;
+		this.score = score;
+	}
 
 	public PlayerDto(String id, String name, String sex, String grade, String cls, String marjor, String dept,
 			Integer score, Integer scorenum, Integer clsnum, Integer marjornum, Integer deptnum, Integer schoolnum) {

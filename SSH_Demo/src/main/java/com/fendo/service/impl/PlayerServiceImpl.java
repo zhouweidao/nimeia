@@ -160,6 +160,7 @@ public class PlayerServiceImpl extends BaseServiceImpl<Player> implements Player
 		entryForm.setItemNo("");
 		entryForm.setItemType(itemtype);
 		entryForm.setRecord("");
+		entryForm.setItemScore(0);
 		playerEntryFormDao.save(entryForm);
 		//System.out.println(player.getPlayerEntryNum());
 		//int tem = player.getPlayerEntryNum();

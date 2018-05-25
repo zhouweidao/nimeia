@@ -99,7 +99,7 @@ public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 	public List<PlayerDto> findPlayersByItemName(String playertype,String paraName) {
 		// TODO Auto-generated method stub
 		playerdtos.clear();
-		String fIND_ITEM_SQL = "select a.playerName as name,a.sex as sex,b.itemScore as score from player as a,palyerentryform as b where a.playerID = b.playerID and a.player = '"+playertype+"' and b.itemName = '"+paraName+"'"; 
+		String fIND_ITEM_SQL = "select a.playerName as name,a.playerID as id,b.itemScore as score from player as a,palyerentryform as b where a.playerID = b.playerID and a.player = '"+playertype+"' and b.itemName = '"+paraName+"' order by a.Score DESC" ; 
 		playerdtos = sessionfactory.getCurrentSession().createSQLQuery(fIND_ITEM_SQL).setResultTransformer(Transformers.aliasToBean(PlayerDto.class)).getResultList();
 		return playerdtos;
 	}
@@ -107,7 +107,9 @@ public class PlayerDaoImpl extends BaseDaoImpl<Player> implements PlayerDao {
 	@Override
 	public List<PlayerDto> findSchoolPlayers() {
 		// TODO Auto-generated method stub
-		String FIND_PLAYER_SQL = "select depName as name,SUM(score) as score from player GROUP BY depName ORDER BY score DESC";
-		return sessionfactory.getCurrentSession().createSQLQuery(FIND_PLAYER_SQL).setResultTransformer(Transformers.aliasToBean(PlayerDto.class)).getResultList();
+		//String FIND_PLAYER_SQL = "select a.depName as name,SUM(a.score) as score from player as a GROUP BY a.depName ORDER BY a.score DESC";
+		String FIND_PLAYER_SQL = "select new com.fendo.util.PlayerDto(a.depName as name,SUM(a.score) as score) from Player as a GROUP BY a.depName ORDER BY a.score DESC";
+	//	return sessionfactory.getCurrentSession().createSQLQuery(FIND_PLAYER_SQL).setResultTransformer(Transformers.aliasToBean(PlayerDto.class)).getResultList();
+		return sessionfactory.getCurrentSession().createQuery(FIND_PLAYER_SQL).getResultList();
 	}
 }

@@ -23,7 +23,6 @@
 							<img alt="140x140" src="../../base/img/68ad566d7c8f72d258e173d0299cba71.jpg" />
 						</div>
 						<div class="span6">
-							<form>
 								<fieldset>
 									<legend>赛事管理员——个人信息</legend>
 									<label>ID</label>
@@ -36,8 +35,6 @@
 									<input type="text" disabled="false" class="priority" value="2" />
 									<span class="help-block"></span>
 								</fieldset>
-							</form>
-
 						</div>
 						<div class="container-fluid">
 							<div class="row-fluid">
@@ -87,7 +84,6 @@
 										</div>
 										<input class="report" placeholder="请输入比赛成绩" type="text">
 											<button class="btn btn-success sureInsert">确认录入</button> <button class="btn btn-warning repealInsert">撤销录入</button>
-									<form class="form-inline">
 										<dl>
 											<dt style="float: left;line-height: 32px;">
 						修改密码操作：
@@ -96,15 +92,12 @@
 										<fieldset>
 											<input class="inputpassword" type="text" /> <button class="btn btn-danger editPasswordBtn">确认修改</button>
 										</fieldset>
-									</form>
-									<form>
 										<dl>
 											<dt style="float: left;line-height: 32px;">
 						报名控制操作：
 					</dt>
 										</dl>
-											<button  class="btn btn-primary startApplybtn">开启/关闭报名</button>
-									</form>
+											<button type="submit" class="btn btn-primary startApplybtn">开启/关闭报名</button>
 								</div>
 							</div>
 						</div>
@@ -128,9 +121,9 @@
 				async: true,
 				success: function(result) {
 					if(result.indexOf('error')!=-1) {
-						$('.startApplybtn').attr('disabled', 'disabled');
+						$('.startApplybtn,.sureInsert,.repealInsert').attr('disabled', 'disabled');
 					} else {
-						$('.startApplybtn').removeAttr('disabled');
+						$('.startApplybtn,.sureInsert,.repealInsert').removeAttr('disabled');
 					}
 				}
 			});
@@ -155,6 +148,7 @@
 	
 
 		$('.itemtype').change(function() {
+			$('.itemname').empty();
 			var itemtype = $('.itemtype option:checked').val();
 			var sex = $('.itemkinds option:checked').val();
 			$.ajax({
@@ -166,6 +160,7 @@
 					itemsex: sex
 				},
 				success: function(items) {
+					$('.itemname').append("<option>---项目名---</option>");
 					for(var i = 0; i < items.length; i++) {
 						$('.itemname').append("<option id='" + items[i][0] + "'>" + items[i][1] + "</option>");
 					}
@@ -175,6 +170,7 @@
 
 		$('.itemname').change(function() {
 			playerEntryForms.length = 0;
+			$('.playername').empty();
 			var itemid = $('.itemname option:checked').attr('id');
 			$.ajax({
 				type: "post",
@@ -184,6 +180,7 @@
 					itemid: itemid
 				},
 				success: function(players) {
+					$('.playername').append("<option>--运动员姓名--</option>");
 					for(var i = 0; i < players.length; i++) {
 						$('.playername').append("<option id='" + players[i].playerID + "'>" + players[i].playerName+"-"+ players[i].playerID+"</option>");
 						playerEntryForms.push(players[i]);
@@ -246,7 +243,7 @@
 					alert(result);
 			}
 		});
-		
+		});
 		$('.startApplybtn').click(function(){
 			$.ajax({
 				type:"post",
@@ -264,7 +261,7 @@
 				}
 			});
 		});
-		});
+		
 	</script>
 
 </html>
